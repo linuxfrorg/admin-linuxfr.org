@@ -1,2 +1,5 @@
+# Maintenance une fois par jour : votes, karmas, tribunes, sitemap, etc.
 1 0 * * *  rake linuxfr:daily
+
+# Indexation sphinx chaque heure
 9 * * * *  rake ts:in:delta
