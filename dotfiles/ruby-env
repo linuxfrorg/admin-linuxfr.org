@@ -5,4 +5,4 @@ export RAILS_ENV=production
 alias reload='thin restart -C ~/admin/conf/thin/rails.yml'
 alias maintenance='touch ~/prod/public/maintenance/ENGAGED'
 alias no_maintenance='rm ~/prod/public/maintenance/ENGAGED'
-alias sc='./script/console'
+alias sc='rails console'
