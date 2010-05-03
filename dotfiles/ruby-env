@@ -1,0 +1,8 @@
+export GEM_HOME="$HOME/gem"
+export RUBYLIB="$HOME/lib"
+export PATH="$HOME/bin:$GEM_HOME/bin:$PATH"
+export RAILS_ENV=production
+alias reload='thin restart -C ~/admin/conf/thin/rails.yml'
+alias maintenance='touch ~/prod/public/maintenance/ENGAGED'
+alias no_maintenance='rm ~/prod/public/maintenance/ENGAGED'
+alias sc='./script/console'
