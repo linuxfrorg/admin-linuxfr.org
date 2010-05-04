@@ -1,0 +1,9 @@
+/var/www/linuxfr/prod/log/*.log {
+        daily
+        missingok
+        rotate 3
+        compress
+        nodelaycompress
+        notifempty
+        copytruncate
+}

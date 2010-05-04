@@ -14,7 +14,7 @@ On commence par installer quelques paquets debian pour jouer :
 
 Avec un ruby :
 
-    # aptitude install ruby1.8 irb1.8 ruby1.8-dev
+    # aptitude install ruby1.8 irb1.8 ruby1.8-dev libopenssl-ruby1.8
 
 Un mysql, avec création de la base de données :
 
@@ -56,7 +56,7 @@ On peut alors passer à l'installation de Rubygems :
 
 Puis installer quelques gems qui vont bien :
 
-    $ gem install rake rdoc bundler
+    $ gem install rake rdoc bundler thin
 	$ gem install rails rspec-rails compass haml devise will_paginate --pre -y
 
 Déployer l'application Rails :
