@@ -16,6 +16,10 @@ Avec un ruby :
 
     # aptitude install ruby1.8 irb1.8 ruby1.8-dev libopenssl-ruby1.8
 
+Un serveur web, nginx :
+
+    # aptitude install nginx
+
 Un mysql, avec création de la base de données :
 
     # aptitude install mysql-server mysql-client libmysql++-dev
@@ -78,6 +82,7 @@ TODO
 ----
 
  * Nginx + logrotate
+ * Install crontab
  * [Chat](http://github.com/nono/chat-linuxfr.org)
  * S'occuper de mettre en place les redirections pour assurer la continuité avec la version templeet
 

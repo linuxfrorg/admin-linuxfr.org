@@ -1,0 +1,71 @@
+upstream linuxfr-frontend {
+    server unix:/var/www/linuxfr/prod/tmp/sockets/production.0.sock;
+    server unix:/var/www/linuxfr/prod/tmp/sockets/production.1.sock;
+    server unix:/var/www/linuxfr/prod/tmp/sockets/production.2.sock;
+    server unix:/var/www/linuxfr/prod/tmp/sockets/production.3.sock;
+}
+
+upstream chat-frontend {
+    server 127.0.0.1:8000;
+}
+
+
+# HTTP
+server {
+    listen 127.0.0.1:80;
+    server_name linuxfr.org;
+    access_log /var/log/nginx/linuxfr.access.log;
+    root /var/www/linuxfr.org/prod/public;
+
+    if ($cookie_https = '1') {
+        rewrite ^(.*)$ https://linuxfr.org$1 break;
+    }
+
+    proxy_set_header X_FORWARDED_PROTO http;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+
+    location ^~ /chat/ {
+        proxy_pass http://chat-frontend;
+    }
+
+    location / {
+        if (-f $request_filename) { 
+            break; 
+        }
+
+        if (!-f $request_filename) { 
+            proxy_pass http://linuxfr-frontend;
+            break;
+        }
+    }
+}
+
+# HTTPS
+server {
+    listen 127.0.0.1:443;
+    server_name linuxfr.org;
+    access_log /var/log/nginx/linuxfr.access.log;
+
+    # SSL
+    ssl on;
+    ssl_certificate server.crt;
+    ssl_certificate_key server.key;
+
+    proxy_set_header X_FORWARDED_PROTO https;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+
+    location / {
+        if (-f $request_filename) { 
+            break; 
+        }
+
+        if (!-f $request_filename) { 
+            proxy_pass http://linuxfr-frontend;
+            break; 
+        }
+    }
+}
