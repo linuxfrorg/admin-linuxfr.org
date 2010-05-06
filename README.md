@@ -12,6 +12,11 @@ On commence par installer quelques paquets debian pour jouer :
 
     # aptitude install vim git-core zsh ack-grep curl openssl
 
+Si vous le souhaitez, vous pouvez en profiter pour mettre en place un Openssh :
+
+    # aptitude install openssh-server
+    # /etc/init.d/ssh start
+
 Avec un ruby :
 
     # aptitude install ruby1.8 irb1.8 ruby1.8-dev libopenssl-ruby1.8
@@ -24,8 +29,9 @@ Un mysql, avec création de la base de données :
 
     # aptitude install mysql-server mysql-client libmysql++-dev
     # mysql -p -u root
-	> CREATE DATABASE linuxfr_rails;
-	> GRANT ALL PRIVILEGES ON linuxfr_rails.* TO linuxfr_rails@localhost;
+    > CREATE DATABASE linuxfr_production;
+    > CREATE USER linuxfr@localhost IDENTIFIED BY 'password';
+    > GRANT ALL PRIVILEGES ON linuxfr_production.* TO linuxfr@localhost;
 
 Et de quoi compiler :
 
@@ -61,7 +67,7 @@ On peut alors passer à l'installation de Rubygems :
 Puis installer quelques gems qui vont bien :
 
     $ gem install rake rdoc bundler thin
-	$ gem install rails rspec-rails compass haml devise will_paginate --pre -y
+    $ gem install rails rspec-rails compass haml devise will_paginate --pre
 
 Déployer l'application Rails :
 
@@ -76,6 +82,20 @@ Lancer le serveur applicatif (thin) :
     # cp /var/www/linuxfr/admin/init.d/thin /etc/init.d/
     # /etc/init.d/thin start
     # update-rc.d thin defaults 99
+
+Mettre en place la conf nginx :
+
+    # cp /var/www/linuxfr/admin/conf/nginx/sites-available/linuxfr.org /etc/nginx/sites-available/
+    # ln -s /etc/nginx/sites-available/linuxfr.org /etc/nginx/sites-enabled/
+    # ln -sf /var/www/linuxfr/admin/conf/nginx/nginx.conf /etc/nginx/
+
+Recopier le certificat SSL dans `/etc/nginx` ou en générer un nouveau
+en suivant les instructions de
+http://wiki.nginx.org/NginxHttpSslModule#Generate\_Certificates
+
+Puis relancer nginx :
+
+    # /etc/init.d/nginx restart
 
 
 TODO
