@@ -50,6 +50,9 @@ server {
             break;
         }
     }
+
+    error_page  404              /system/400.html;
+    error_page  500 502 503 504  /system/500.html;
 }
 
 # HTTPS
@@ -89,6 +92,9 @@ server {
             break; 
         }
     }
+
+    error_page  404              /system/400.html;
+    error_page  500 502 503 504  /system/500.html;
 }
 
 # No-www
