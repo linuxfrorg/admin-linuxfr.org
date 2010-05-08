@@ -31,6 +31,17 @@ server {
 
     client_max_body_size 2M;
 
+    location ~* \.(css|js|ico|gif|jpe?g|png) {
+        if ($args ~* [0-9]+$) {
+            expires max;
+            break;
+        }
+    }
+    location ~* \.(gif|jpe?g|png|svg|xcf|ttf|otf|dtd) {
+        expires 10d;
+        break;
+    }
+
     location ^~ /chat/ {
         proxy_pass http://chat-frontend;
     }
@@ -76,6 +87,21 @@ server {
     proxy_max_temp_file_size 0;
 
     client_max_body_size 2M;
+
+    location ~* \.(css|js|ico|gif|jpe?g|png) {
+        if ($args ~* [0-9]+$) {
+            expires max;
+            break;
+        }
+    }
+    location ~* \.(gif|jpe?g|png|svg|xcf|ttf|otf|dtd) {
+        expires 10d;
+        break;
+    }
+
+    location ^~ /chat/ {
+        proxy_pass http://chat-frontend;
+    }
 
     location / {
         if (-f $request_filename) { 
