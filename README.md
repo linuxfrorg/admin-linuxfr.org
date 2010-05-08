@@ -107,5 +107,6 @@ TODO
  * Install crontab
  * [Chat](http://github.com/nono/chat-linuxfr.org)
  * Sphinx
+ * Webalizer
  * S'occuper de mettre en place les redirections pour assurer la continuité avec la version templeet
 
