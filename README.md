@@ -25,6 +25,8 @@ Un serveur web, nginx :
 
     # aptitude install nginx
 
+**TODO** : utiliser les backports : http://www.backports.org/dokuwiki/doku.php?id=instructions ?
+
 Un mysql, avec création de la base de données :
 
     # aptitude install mysql-server mysql-client libmysql++-dev

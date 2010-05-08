@@ -12,10 +12,10 @@ upstream chat-frontend {
 
 # HTTP
 server {
-    listen 127.0.0.1:80;
+    listen 80;
     server_name linuxfr.org;
     access_log /var/log/nginx/linuxfr.access.log;
-    root /var/www/linuxfr.org/prod/public;
+    root /var/www/linuxfr/prod/public;
 
     if ($cookie_https = '1') {
         rewrite ^(.*)$ https://linuxfr.org$1 break;
@@ -44,9 +44,10 @@ server {
 
 # HTTPS
 server {
-    listen 127.0.0.1:443;
+    listen 443;
     server_name linuxfr.org;
     access_log /var/log/nginx/linuxfr.access.log;
+    root /var/www/linuxfr/prod/public;
 
     # SSL
     ssl on;
