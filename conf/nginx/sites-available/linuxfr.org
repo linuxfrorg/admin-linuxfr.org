@@ -25,6 +25,11 @@ server {
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
+    proxy_intercept_errors on;
+    proxy_redirect off;
+    proxy_max_temp_file_size 0;
+
+    client_max_body_size 2M;
 
     location ^~ /chat/ {
         proxy_pass http://chat-frontend;
@@ -63,6 +68,11 @@ server {
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $http_host;
+    proxy_intercept_errors on;
+    proxy_redirect off;
+    proxy_max_temp_file_size 0;
+
+    client_max_body_size 2M;
 
     location / {
         if (-f $request_filename) { 

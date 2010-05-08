@@ -103,8 +103,9 @@ Puis relancer nginx :
 TODO
 ----
 
- * Nginx + logrotate
+ * Logrotate
  * Install crontab
  * [Chat](http://github.com/nono/chat-linuxfr.org)
+ * Sphinx
  * S'occuper de mettre en place les redirections pour assurer la continuité avec la version templeet
 
