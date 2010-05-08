@@ -35,6 +35,11 @@ server {
             break; 
         }
 
+        if (-f $document_root/system/maintenance.html ) {
+            error_page 503 /system/maintenance.html;
+            return 503;
+        }
+
         if (!-f $request_filename) { 
             proxy_pass http://linuxfr-frontend;
             break;
@@ -62,6 +67,11 @@ server {
     location / {
         if (-f $request_filename) { 
             break; 
+        }
+
+        if (-f $document_root/system/maintenance.html ) {
+            error_page 503 /system/maintenance.html;
+            return 503;
         }
 
         if (!-f $request_filename) { 
