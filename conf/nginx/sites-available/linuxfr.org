@@ -70,3 +70,18 @@ server {
         }
     }
 }
+
+# No-www
+server {
+    listen 80;
+    server_name www.linuxfr.org;
+    rewrite ^/(.*) http://linuxfr.org/$1 permanent;
+}
+server {
+    listen 443;
+    server_name www.linuxfr.org;
+    ssl on;
+    ssl_certificate server.crt;
+    ssl_certificate_key server.key;
+    rewrite ^/(.*) https://linuxfr.org/$1 permanent;
+}
