@@ -10,7 +10,12 @@ Install on Debian Lenny
 
 On commence par installer quelques paquets debian pour jouer :
 
-    # aptitude install vim git-core zsh ack-grep curl openssl
+    # aptitude install vim git-core zsh ack-grep curl openssl colordiff
+
+Et de quoi compiler :
+
+    # aptitude install build-essential autoconf libxml2-dev libreadline-dev
+    # aptitude install libxslt1-dev aspell libaspell-dev aspell-fr zlib1g-dev
 
 Si vous le souhaitez, vous pouvez en profiter pour mettre en place un Openssh :
 
@@ -21,28 +26,26 @@ Avec un ruby :
 
     # aptitude install ruby1.8 irb1.8 ruby1.8-dev libopenssl-ruby1.8
 
-Un serveur web, nginx :
+Un serveur web, nginx (en utilisant les backports) :
 
-    # aptitude install nginx
-
-**TODO** : utiliser les backports : http://www.backports.org/dokuwiki/doku.php?id=instructions ?
+    # echo 'deb http://www.backports.org/debian lenny-backports main contrib non-free' > /etc/apt/sources.list.d/30lenny-backports.list
+    # aptitude update
+    # aptitude install debian-backports-keyring
+    # aptitude -t lenny-backports install nginx
 
 Un mysql, avec création de la base de données :
 
-    # aptitude install mysql-server mysql-client libmysql++-dev
+    # aptitude -t lenny-backports install mysql-server mysql-client libmysql++-dev
     # mysql -p -u root
     > CREATE DATABASE linuxfr_production;
     > CREATE USER linuxfr@localhost IDENTIFIED BY 'password';
     > GRANT ALL PRIVILEGES ON linuxfr_production.* TO linuxfr@localhost;
 
-Et de quoi compiler :
-
-    # aptitude install build-essential autoconf libxml2-dev libreadline-dev
-    # aptitude install libxslt1-dev aspell libaspell-dev aspell-fr
-
 On va maintenant se créer un compte utilisateur linuxfr :
 
-    # adduser --home /var/www/linuxfr --gecos 'LinuxFr <linuxfr@linuxfr>' --disabled-password linuxfr
+    # adduser --home /data/web/linuxfr --gecos 'LinuxFr <linuxfr@linuxfr>' --disabled-password linuxfr
+    # mkdir /www
+    # ln -s /data/web/linuxfr /www/linuxfr.org
 
 Si vous souhaitez vous connecter en ssh, c'est probablement le bon moment pour
 ajouter votre clé ssh publique à `/var/www/linuxfr/.ssh/authorized_keys`.
@@ -56,15 +59,15 @@ N'oubliez pas de créer le fichier `ruby-env`, sourcé depuis le
 
     $ git clone git://github.com/nono/admin-linuxfr.org.git admin
     $ ln -s ~/admin/dotfiles/ruby-env .
-    $ echo "source ruby-env" >> .bashrc
+    $ echo "source ~/ruby-env" >> .bashrc
     $ source ruby-env
 
 On peut alors passer à l'installation de Rubygems :
 
-    $ wget http://rubyforge.org/frs/download.php/69365/rubygems-1.3.6.tgz
-    $ tar xvzf rubygems-1.3.6.tgz
-    $ cd rubygems-1.3.6 && ruby1.8 setup.rb --prefix=$HOME
-    $ cd && ln -s bin/gem1.8 bin/gem
+    $ wget http://rubyforge.org/frs/download.php/70696/rubygems-1.3.7.tgz
+    $ tar xvzf rubygems-1.3.7.tgz
+    $ cd rubygems-1.3.7 && ruby1.8 setup.rb --prefix=$HOME
+    $ cd && ln -s gem1.8 bin/gem
 
 Puis installer quelques gems qui vont bien :
 
@@ -87,6 +90,7 @@ Lancer le serveur applicatif (thin) :
 
 Mettre en place la conf nginx :
 
+    # cp /var/www/linuxfr/admin/conf/nginx/nginx.conf /etc/nginx/
     # cp /var/www/linuxfr/admin/conf/nginx/sites-available/linuxfr.org /etc/nginx/sites-available/
     # ln -s /etc/nginx/sites-available/linuxfr.org /etc/nginx/sites-enabled/
     # ln -sf /var/www/linuxfr/admin/conf/nginx/nginx.conf /etc/nginx/
