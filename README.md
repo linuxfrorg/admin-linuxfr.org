@@ -36,6 +36,8 @@ Un serveur web, nginx (en utilisant les backports) :
 Un mysql, avec création de la base de données :
 
     # aptitude -t lenny-backports install mysql-server mysql-client libmysql++-dev
+    # cp conf/mysql/conf.d/* /etc/mysql/conf.d/
+    # /etc/init.d/mysql restart
     # mysql -p -u root
     > CREATE DATABASE linuxfr_production;
     > CREATE USER linuxfr@localhost IDENTIFIED BY 'password';
@@ -109,8 +111,8 @@ TODO
 
  * Logrotate
  * Install crontab
- * [Chat](http://github.com/nono/chat-linuxfr.org)
  * Sphinx
  * Webalizer
  * S'occuper de mettre en place les redirections pour assurer la continuité avec la version templeet
+ * Import des données existantes : http://github.com/nono/migration-linuxfr.org
 
