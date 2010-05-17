@@ -42,6 +42,7 @@ Un mysql, avec création de la base de données :
     > CREATE DATABASE linuxfr_production;
     > CREATE USER linuxfr@localhost IDENTIFIED BY 'password';
     > GRANT ALL PRIVILEGES ON linuxfr_production.* TO linuxfr@localhost;
+    (si /var est une partition avec peu de place, ne pas oublier de déplacer /var/lib/mysql ailleurs)
 
 On va maintenant se créer un compte utilisateur linuxfr :
 
@@ -74,7 +75,7 @@ On peut alors passer à l'installation de Rubygems :
 Puis installer quelques gems qui vont bien :
 
     $ gem install rake rdoc bundler thin
-    $ gem install rails rspec-rails compass haml devise will_paginate --pre
+    $ gem install rails rspec-rails devise will_paginate --pre
 
 Déployer l'application Rails :
 
@@ -115,4 +116,5 @@ TODO
  * Webalizer
  * S'occuper de mettre en place les redirections pour assurer la continuité avec la version templeet
  * Import des données existantes : http://github.com/nono/migration-linuxfr.org
+ * Lister tous les fichiers/répertoires à déplacer dans /data
 
