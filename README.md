@@ -32,6 +32,7 @@ Un serveur web, nginx (en utilisant les backports) :
     # aptitude update
     # aptitude install debian-backports-keyring
     # aptitude -t lenny-backports install nginx
+    # Ajouter la ligne "image/svg+xml  svg svgz;" à /etc/nginx/mime.types
 
 Un mysql, avec création de la base de données :
 
@@ -85,6 +86,10 @@ Déployer l'application Rails :
     $ bundle install
     $ rake db:setup
 
+Import des données existantes en provenance de templeet :
+
+    $ lynx http://github.com/nono/migration-linuxfr.org
+
 Lancer le serveur applicatif (thin) :
 
     # cp /var/www/linuxfr/admin/init.d/thin /etc/init.d/
@@ -105,16 +110,4 @@ http://wiki.nginx.org/NginxHttpSslModule#Generate\_Certificates
 Puis relancer nginx :
 
     # /etc/init.d/nginx restart
-
-
-TODO
-----
-
- * Logrotate
- * Install crontab
- * Sphinx
- * Webalizer
- * S'occuper de mettre en place les redirections pour assurer la continuité avec la version templeet
- * Import des données existantes : http://github.com/nono/migration-linuxfr.org
- * Lister tous les fichiers/répertoires à déplacer dans /data
 

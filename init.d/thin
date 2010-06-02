@@ -28,7 +28,7 @@ case "$1" in
     echo "."
     ;;
   restart)
-    echo -n "Restarting Thin instances for user '$USER'"
+    echo "Restarting Thin instances for user '$USER'"
     su -l -c "source ~/ruby-env; $DAEMON $DAEMON_ARGS restart" $USER
     echo "."
     ;;
