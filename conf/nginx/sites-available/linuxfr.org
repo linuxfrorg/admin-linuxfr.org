@@ -5,8 +5,8 @@ upstream linuxfr-frontend {
     server unix:/var/www/linuxfr/prod/tmp/sockets/production.3.sock;
 }
 
-upstream chat-frontend {
-    server 127.0.0.1:8000;
+upstream board-frontend {
+    server unix:/var/www/linuxfr/board/board.sock;
 }
 
 
@@ -42,8 +42,8 @@ server {
         break;
     }
 
-    location ^~ /chat/ {
-        proxy_pass http://chat-frontend;
+    location ^~ /b/ {
+        proxy_pass http://board-frontend;
     }
 
     location / {
@@ -99,8 +99,8 @@ server {
         break;
     }
 
-    location ^~ /chat/ {
-        proxy_pass http://chat-frontend;
+    location ^~ /b/ {
+        proxy_pass http://board-frontend;
     }
 
     location / {
