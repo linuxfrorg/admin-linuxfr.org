@@ -26,6 +26,10 @@ Avec un ruby :
 
     # aptitude install ruby1.8 irb1.8 ruby1.8-dev libopenssl-ruby1.8
 
+Et du python :
+
+    # aptitude install python-pygments
+
 Un serveur web, nginx (en utilisant les backports) :
 
     # echo 'deb http://www.backports.org/debian lenny-backports main contrib non-free' > /etc/apt/sources.list.d/30lenny-backports.list

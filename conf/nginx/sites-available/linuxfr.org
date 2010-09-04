@@ -73,6 +73,9 @@ server {
     access_log /var/log/nginx/linuxfr.access.log;
     root /var/www/linuxfr/prod/public;
 
+    # HTTP Strict Transport Security (force HTTPS) - 1 year
+    add_header Strict-Transport-Security max-age=31536000;
+
     # SSL
     ssl on;
     ssl_certificate server.crt;
