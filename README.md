@@ -82,23 +82,21 @@ Puis installer quelques gems qui vont bien :
     $ gem install rake rdoc bundler thin
     $ gem install rails rspec-rails devise will_paginate --pre
 
-Déployer l'application Rails :
+Déployer l'application Rails à distance avec capistrano :
 
-    $ git clone git://github.com/nono/linuxfr.org.git prod
-    $ cd prod
-    $ cp config/database.yml{.sample,}
-    $ bundle install
-    $ rake db:setup
+    (desktop) $ cap env:production deploy:setup
+    (desktop) $ cap env:production deploy:check
+    (desktop) $ cap env:production deploy:update
 
 Import des données existantes en provenance de templeet :
 
-    $ lynx http://github.com/nono/migration-linuxfr.org
+    $ w3m http://github.com/nono/migration-linuxfr.org
 
-Lancer le serveur applicatif (thin) :
+Lancer le serveur applicatif (unicorn) :
 
-    # cp /var/www/linuxfr/admin/init.d/thin /etc/init.d/
-    # /etc/init.d/thin start
-    # update-rc.d thin defaults 99
+    # cp /var/www/linuxfr/admin/init.d/unicorn /etc/init.d/
+    # /etc/init.d/unicorn start
+    # update-rc.d unicorn defaults 99
 
 Mettre en place la conf nginx :
 

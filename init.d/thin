@@ -19,7 +19,7 @@ DAEMON_ARGS="-C $HOME/admin/conf/thin/rails.yml"
 case "$1" in
   start)
     echo "Starting Thin instances for user '$USER'"
-        su -l -c "source ~/ruby-env; $DAEMON $DAEMON_ARGS start" $USER
+    su -l -c "source ~/ruby-env; $DAEMON $DAEMON_ARGS start" $USER
     echo "."
     ;;
   stop)
@@ -33,7 +33,7 @@ case "$1" in
     echo "."
     ;;
   *)
-    echo "Usage: /etc/init.d/thin {start|stop|reload|restart|force-reload}"
+    echo "Usage: /etc/init.d/thin {start|stop|reload|restart}"
     exit 1
 esac
 
