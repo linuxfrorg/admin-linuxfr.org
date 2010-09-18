@@ -1,8 +1,7 @@
+export RAILS_ENV=production
 export GEM_HOME="$HOME/gem"
 export RUBYLIB="$HOME/lib"
 export PATH="$HOME/bin:$GEM_HOME/bin:$PATH"
-export RAILS_ENV=production
-alias reload='thin restart -C ~/admin/conf/thin/rails.yml'
-alias maintenance='echo "En maintenance" > ~/prod/public/system/maintenance.html'
-alias no_maintenance='rm ~/prod/public/system/maintenance.html'
+alias maintenance='echo "En maintenance" > ~/$RAILS_ENV/current/public/system/maintenance.html'
+alias no_maintenance='rm ~/$RAILS_ENV/current/public/system/maintenance.html'
 alias sc='rails console'

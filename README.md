@@ -11,6 +11,7 @@ Install on Debian Lenny
 On commence par installer quelques paquets debian pour jouer :
 
     # aptitude install vim git-core zsh ack-grep curl openssl colordiff
+    # aptitude install python-pygments
 
 Et de quoi compiler :
 
@@ -21,14 +22,6 @@ Si vous le souhaitez, vous pouvez en profiter pour mettre en place un Openssh :
 
     # aptitude install openssh-server
     # /etc/init.d/ssh start
-
-Avec un ruby :
-
-    # aptitude install ruby1.8 irb1.8 ruby1.8-dev libopenssl-ruby1.8
-
-Et du python :
-
-    # aptitude install python-pygments
 
 Un serveur web, nginx (en utilisant les backports) :
 
@@ -67,26 +60,32 @@ N'oubliez pas de créer le fichier `ruby-env`, sourcé depuis le
 
     $ git clone git://github.com/nono/admin-linuxfr.org.git admin
     $ ln -s ~/admin/dotfiles/ruby-env .
-    $ echo "source ~/ruby-env" >> .bashrc
+    $ vim .bashrc   ## Ajouter "source ~/ruby-env" au début
     $ source ruby-env
 
-On peut alors passer à l'installation de Rubygems :
+On peut alors passer à l'installation de Ruby 1.9.2 (livré avec rubygems) :
 
-    $ wget http://rubyforge.org/frs/download.php/70696/rubygems-1.3.7.tgz
-    $ tar xvzf rubygems-1.3.7.tgz
-    $ cd rubygems-1.3.7 && ruby1.8 setup.rb --prefix=$HOME
-    $ cd && ln -s gem1.8 bin/gem
+    $ wget ftp://ftp.ruby-lang.org//pub/ruby/1.9/ruby-1.9.2-p0.tar.gz
+    $ tar xvzf ruby-1.9.2-p0.tar.gz
+    $ cd ruby-1.9.2-p0/ && ./configure --prefix=$HOME && make && make install
 
 Puis installer quelques gems qui vont bien :
 
-    $ gem install rake rdoc bundler thin
-    $ gem install rails rspec-rails devise will_paginate --pre
+    $ gem install bundler unicorn
 
 Déployer l'application Rails à distance avec capistrano :
 
     (desktop) $ cap env:production deploy:setup
+    $ vim ~/production/shared/config/database.yml
+    # chmod -R a+r /usr/share/git-core/templates
     (desktop) $ cap env:production deploy:check
     (desktop) $ cap env:production deploy:update
+
+Installer redis :
+
+    $ wget "http://redis.googlecode.com/files/redis-2.0.1.tar.gz"
+    $ tar xvzf redis-2.0.1.tar.gz
+    $ cd redis-2.0.1 && make && ./redis-server redis.conf
 
 Import des données existantes en provenance de templeet :
 
@@ -100,10 +99,9 @@ Lancer le serveur applicatif (unicorn) :
 
 Mettre en place la conf nginx :
 
-    # cp /var/www/linuxfr/admin/conf/nginx/nginx.conf /etc/nginx/
-    # cp /var/www/linuxfr/admin/conf/nginx/sites-available/linuxfr.org /etc/nginx/sites-available/
-    # ln -s /etc/nginx/sites-available/linuxfr.org /etc/nginx/sites-enabled/
     # ln -sf /var/www/linuxfr/admin/conf/nginx/nginx.conf /etc/nginx/
+    # ln -s /var/www/linuxfr/admin/conf/nginx/sites-available/linuxfr.org /etc/nginx/sites-available/
+    # ln -s /etc/nginx/sites-available/linuxfr.org /etc/nginx/sites-enabled/
 
 Recopier le certificat SSL dans `/etc/nginx` ou en générer un nouveau
 en suivant les instructions de
