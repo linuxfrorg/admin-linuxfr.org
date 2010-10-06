@@ -3,7 +3,7 @@
 
 if ARGV.empty?
   $stderr.puts "Usage: ./path/to/generator.rb env > sites-available/vhost"
-  $stderr.puts "       where env is alpha or web"
+  $stderr.puts "       where env is alpha or production"
   exit -1
 end
 
@@ -55,14 +55,16 @@ server {
 
     client_max_body_size 2M;
 
-    location ~* \.(css|js|ico|gif|jpe?g|png) {
+    location ~* \.(css|js|ico|gif|jpe?g|png|svg|xcf|ttf|otf|dtd)$ {
+        expires 10d;
         if ($args ~* [0-9]+$) {
             expires max;
             break;
         }
     }
-    location ~* \.(gif|jpe?g|png|svg|xcf|ttf|otf|dtd) {
-        expires 10d;
+
+    location ~* ^/(fonts|images|javascripts|stylesheets) {
+        autoindex on;
         break;
     }
 
@@ -71,8 +73,8 @@ server {
     }
 
     location / {
-        if (-f $request_filename) { 
-            break; 
+        if (-f $request_filename) {
+            break;
         }
 
         if (-f $document_root/system/maintenance.html ) {
@@ -80,7 +82,7 @@ server {
             return 503;
         }
 
-        if (!-f $request_filename) { 
+        if (!-f $request_filename) {
             proxy_pass http://linuxfr-frontend;
             break;
         }
@@ -112,14 +114,16 @@ server {
 
     client_max_body_size 2M;
 
-    location ~* \.(css|js|ico|gif|jpe?g|png) {
+    location ~* \.(css|js|ico|gif|jpe?g|png|svg|xcf|ttf|otf|dtd)$ {
+        expires 10d;
         if ($args ~* [0-9]+$) {
             expires max;
             break;
         }
     }
-    location ~* \.(gif|jpe?g|png|svg|xcf|ttf|otf|dtd) {
-        expires 10d;
+
+    location ~* ^/(fonts|images|javascripts|stylesheets) {
+        autoindex on;
         break;
     }
 
@@ -128,8 +132,8 @@ server {
     }
 
     location / {
-        if (-f $request_filename) { 
-            break; 
+        if (-f $request_filename) {
+            break;
         }
 
         if (-f $document_root/system/maintenance.html ) {
@@ -137,9 +141,9 @@ server {
             return 503;
         }
 
-        if (!-f $request_filename) { 
+        if (!-f $request_filename) {
             proxy_pass http://linuxfr-frontend;
-            break; 
+            break;
         }
     }
 
