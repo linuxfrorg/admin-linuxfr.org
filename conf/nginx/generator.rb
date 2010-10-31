@@ -3,18 +3,18 @@
 
 if ARGV.empty?
   $stderr.puts "Usage: ./path/to/generator.rb env > sites-available/vhost"
-  $stderr.puts "       where env is alpha or production"
+  $stderr.puts "       where env is local, alpha or production"
   exit -1
 end
 
 case env = ARGV.first
+when "local"
+  user    = "nono"
+  fqdn    = "dlfp.lo"
 when "alpha"
-  vserver = "alpha"
   user    = "alpha"
   fqdn    = "alpha.linuxfr.org"
-
 when "production"
-  vserver = "web"
   user    = "linuxfr"
   fqdn    = "linuxfr.org"
 end
@@ -34,48 +34,98 @@ upstream board-frontend {
 }
 
 
-# HTTP
 server {
+    server_name @@fqdn@@;
+    access_log /var/log/nginx/@@user@@.access.log;
+    root /var/www/@@user@@/@@env@@/current/public;
+
     listen 80;
-    server_name @@fqdn@@;
-    access_log /var/log/nginx/@@user@@.access.log;
-    root /var/www/@@user@@/@@env@@/current/public;
+    listen 443 default ssl;
 
-    if ($cookie_https = '1') {
-        rewrite ^(.*)$ https://@@fqdn@@$1 break;
-    }
-
-    include /etc/nginx/partials/legacy;
-    include /etc/nginx/partials/rails;
-}
-
-# HTTPS
-server {
-    listen 443;
-    server_name @@fqdn@@;
-    access_log /var/log/nginx/@@user@@.access.log;
-    root /var/www/@@user@@/@@env@@/current/public;
-
-    # SSL
-    ssl on;
+    ssl_protocols SSLv3 TLSv1;
     ssl_certificate server.crt;
     ssl_certificate_key server.key;
 
-    include /etc/nginx/partials/legacy;
-    include /etc/nginx/partials/rails;
+    proxy_set_header X_FORWARDED_PROTO $scheme;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+
+    proxy_max_temp_file_size 0;
+    client_max_body_size 2M;
+
+    proxy_intercept_errors on;
+    error_page  404              /errors/400.html;
+    error_page  500 502 503 504  /errors/500.html;
+
+    merge_slashes on;
+
+    set $redirect_to_https $cookie_https/$scheme;
+    if ($redirect_to_https = '1/http') {
+        rewrite ^(.*)$ https://@@fqdn@@$1 break;
+    }
+
+    # Dispatching
+    location ~* \.(css|js|ico|gif|jpe?g|png|svg|xcf|ttf|otf|dtd)$ {
+    	expires 10d;
+    	if ($args ~* [0-9]+$) {
+    		expires max;
+    		break;
+    	}
+    }
+
+    location ~* ^/(fonts|images|javascripts|stylesheets) {
+    	autoindex on;
+    	break;
+    }
+
+    location ^~ /b/ {
+    	proxy_pass http://board-frontend;
+    }
+
+    location / {
+        # Redirections to preserve templeet URL
+        rewrite ^/(pub|my|wap|pda|i|interviews|newsletter|rdf|sidebar|usenet)(/.*)?$ / permanent;
+        rewrite ^.*\.rss$ /backend.rss last;
+        rewrite ^/\d+/\d+/\d+/(\d+)\.html$ /news/$1 permanent;
+        rewrite ^/topics/([^,./]*)(,.*)?(.html)?$ /section/$1 permanent;
+        rewrite ^/~([^/]*)/?$ /users/$1 permanent;
+        rewrite ^/~([^/]*)/(\d+)\.html$ /users/$1/journaux/$2 permanent;
+        rewrite ^/~([^/]*)/news.*$ /users/$1/news permanent;
+        rewrite ^/~([^/]*)/forums.*$ /users/$1/posts permanent;
+        rewrite ^/~([^/]*)/tracker*$ /users/$1/suivi permanent;
+        rewrite ^/~([^/]*)/comments*$ /users/$1/comments permanent;
+        rewrite ^/forums/(\d+)/(\d+)\.html$ /forums/$1/posts/$2 permanent;
+        rewrite ^/forums/(\d+).+$ /forums/$1 permanent;
+        rewrite ^/tracker.*$ /suivi permanent;
+        rewrite ^/aide.+$ /aide permanent;
+        rewrite ^/dons.*$ /faire_un_don permanent;
+        rewrite ^/moderateurs/moderation.html$ /regles_de_moderation permanent;
+        rewrite ^/moderateurs.*$ /team permanent;
+        rewrite ^/redacteurs.*$ /redaction permanent;
+        rewrite ^/bouchot.*$ /board permanent;
+        rewrite ^/logos\.html$ /images/logos/ permanent;
+
+    	try_files $uri /pages/$uri /pages/$uri.html @dynamic;
+    }
+
+    location @dynamic {
+    	if (-f $document_root/system/maintenance.html ) {
+    		error_page 503 /system/maintenance.html;
+    		return 503;
+    	}
+
+    	proxy_pass http://linuxfr-frontend;
+    }
 }
 
 # No-www
 server {
+    server_name www.@@fqdn@@;
     listen 80;
-    server_name www.@@fqdn@@;
-    rewrite ^/(.*) http://@@fqdn@@/$1 permanent;
-}
-server {
     listen 443;
-    server_name www.@@fqdn@@;
-    ssl on;
     ssl_certificate server.crt;
     ssl_certificate_key server.key;
-    rewrite ^/(.*) https://@@fqdn@@/$1 permanent;
+    rewrite ^/(.*) $scheme://@@fqdn@@/$1 permanent;
 }
