@@ -21,7 +21,7 @@ PID=`cat $HOME/$RAILS_ENV/shared/pids/unicorn.pid`
 case "$1" in
   start)
     echo "Starting unicorn for user '$USER'"
-    su -l -c "source ~/ruby-env; $DAEMON $DAEMON_ARGS" $USER
+    su -l -c "source ~/ruby-env; cd $HOME/$RAILS_ENV/current; bundle exec $DAEMON $DAEMON_ARGS" $USER
     echo "."
     ;;
 
