@@ -45,6 +45,7 @@ server {
     ssl_protocols SSLv3 TLSv1;
     ssl_certificate server.crt;
     ssl_certificate_key server.key;
+    ssl_session_cache shared:SSL:2m;
 
     proxy_set_header X_FORWARDED_PROTO $scheme;
     proxy_set_header X-Real-IP $remote_addr;
