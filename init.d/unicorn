@@ -27,26 +27,26 @@ case "$1" in
 
   stop)
     echo "Stopping unicorn for user '$USER'"
-	kill -QUIT $PID
+    kill -QUIT $PID
     echo "."
     ;;
 
   restart)
     echo "Restarting unicorn for user '$USER'"
-	kill -USR2 $PID
-	sleep 1
-	kill -QUIT $PID
+    kill -USR2 $PID
+    sleep 1
+    kill -QUIT $PID
     echo "."
     ;;
 
   reload)
     echo "Reloading unicorn configuration for user '$USER'"
-	kill -HUP $PID
+    kill -HUP $PID
     echo "."
     ;;
 
   *)
-    echo "Usage: /etc/init.d/thin {start|stop|reload|restart}"
+    echo "Usage: /etc/init.d/unicorn {start|stop|reload|restart}"
     exit 1
 esac
 
