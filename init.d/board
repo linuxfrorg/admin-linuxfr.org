@@ -13,25 +13,36 @@
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 USER=linuxfr
 HOME=/var/www/$USER
+PIDFILE=$HOME/board/board.pid
+
+as_user() {
+  if [ "xroot" != "x`whoami`" ]
+  then
+    sh -c "$2"
+  else
+    su - -c "$2" $1
+  fi
+}
 
 case "$1" in
   start)
     echo "Starting board for user '$USER'"
-    su -l -c "source ~/ruby-env; cd $HOME/board; ruby -Ilib ./bin/board.rb" $USER
+    as_user $USER "source ~/ruby-env; cd $HOME/board; ruby -Ilib ./bin/board.rb"
     echo "."
     ;;
 
   stop)
     echo "Stopping board for user '$USER'"
-    kill -QUIT `cat $HOME/board/board.pid`
+    kill -QUIT `cat $PIDFILE`
     echo "."
     ;;
 
   restart)
     echo "Restarting board for user '$USER'"
-    kill -QUIT `cat $HOME/board/board.pid`
-    sleep 1
-    su -l -c "source ~/ruby-env; cd $HOME/board; ruby -Ilib ./bin/board.rb" $USER
+    kill -QUIT `cat $PIDFILE`
+    sleep 2
+    rm -f $PIDFILE
+    as_user $USER "source ~/ruby-env; cd $HOME/board; ruby -Ilib ./bin/board.rb"
     echo "."
     ;;
 

@@ -18,10 +18,19 @@ DAEMON=unicorn
 DAEMON_ARGS="-c $HOME/$RAILS_ENV/current/config/unicorn.rb"
 PID=`cat $HOME/$RAILS_ENV/shared/pids/unicorn.pid`
 
+as_user() {
+  if [ "xroot" != "x`whoami`" ]
+  then
+    sh -c "$2"
+  else
+    su - -c "$2" $1
+  fi
+}
+
 case "$1" in
   start)
     echo "Starting unicorn for user '$USER'"
-    su -l -c "source ~/ruby-env; cd $HOME/$RAILS_ENV/current; bundle exec $DAEMON $DAEMON_ARGS" $USER
+    as_user $USER "source ~/ruby-env; cd $HOME/$RAILS_ENV/current; bundle exec $DAEMON $DAEMON_ARGS"
     echo "."
     ;;
 
