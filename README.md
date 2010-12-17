@@ -91,6 +91,11 @@ Import des données existantes en provenance de templeet :
 
     $ w3m http://github.com/nono/migration-linuxfr.org
 
+Installer la crontab :
+
+    $ crontab -e
+    0 1 * * *   source ruby-env && cd $RAILS_ENV/current && rake linuxfr:daily
+
 Lancer le serveur applicatif (unicorn) :
 
     # cp /var/www/linuxfr/admin/init.d/unicorn /etc/init.d/
