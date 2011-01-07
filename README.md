@@ -42,6 +42,12 @@ Un mysql, avec création de la base de données :
     > GRANT ALL PRIVILEGES ON linuxfr_production.* TO linuxfr@localhost;
     (si /var est une partition avec peu de place, ne pas oublier de déplacer /var/lib/mysql ailleurs)
 
+Ruby 1.9.2 (livré avec rubygems) :
+
+    # echo 'deb http://deb.bearstech.com ruby-1.9.2-i386/' > /etc/apt/sources.list.d/40bearstech.list
+    # aptitude update
+    # aptitude install ruby1.9.1 ruby1.9.1-dev
+
 On va maintenant se créer un compte utilisateur linuxfr :
 
     # adduser --home /data/web/linuxfr --gecos 'LinuxFr <linuxfr@linuxfr>' --disabled-password linuxfr
@@ -63,12 +69,6 @@ N'oubliez pas de créer le fichier `ruby-env`, sourcé depuis le
     $ vim .bashrc   ## Ajouter "source ~/ruby-env" au début
     $ source ruby-env
 
-On peut alors passer à l'installation de Ruby 1.9.2 (livré avec rubygems) :
-
-    $ wget ftp://ftp.ruby-lang.org//pub/ruby/1.9/ruby-1.9.2-p0.tar.gz
-    $ tar xvzf ruby-1.9.2-p0.tar.gz
-    $ cd ruby-1.9.2-p0/ && ./configure --prefix=$HOME && make && make install
-
 Puis installer quelques gems qui vont bien :
 
     $ gem install bundler unicorn
@@ -83,9 +83,9 @@ Déployer l'application Rails à distance avec capistrano :
 
 Installer redis :
 
-    $ wget "http://redis.googlecode.com/files/redis-2.0.1.tar.gz"
-    $ tar xvzf redis-2.0.1.tar.gz
-    $ cd redis-2.0.1 && make && ./redis-server redis.conf
+    $ wget "http://redis.googlecode.com/files/redis-2.0.4.tar.gz"
+    $ tar xvzf redis-2.0.4.tar.gz
+    $ cd redis-2.0.4 && make && ./redis-server redis.conf
 
 Import des données existantes en provenance de templeet :
 
