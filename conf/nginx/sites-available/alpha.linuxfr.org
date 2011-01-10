@@ -51,6 +51,10 @@ server {
     	}
     }
 
+    location = /robots.txt {
+        rewrite ^(.*)$ /system/$1 last;
+    }
+
     location ~* ^/(fonts|images|javascripts|stylesheets) {
     	autoindex on;
     	break;
