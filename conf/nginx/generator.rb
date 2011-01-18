@@ -50,6 +50,8 @@ server {
     ssl_certificate_key server.key;
     ssl_session_cache shared:SSL:2m;
 
+    add_header X-Frame-Options DENY;
+
     proxy_set_header X_FORWARDED_PROTO $scheme;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

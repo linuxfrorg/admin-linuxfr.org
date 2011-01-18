@@ -16,7 +16,7 @@ On commence par installer quelques paquets debian pour jouer :
 Et de quoi compiler :
 
     # aptitude install build-essential autoconf libxml2-dev libreadline-dev libssl-dev
-    # aptitude install libxslt1-dev aspell libaspell-dev aspell-fr zlib1g-dev
+    # aptitude install libxslt1-dev imagemagick zlib1g-dev
 
 Si vous le souhaitez, vous pouvez en profiter pour mettre en place un Openssh :
 
