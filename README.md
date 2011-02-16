@@ -5,12 +5,12 @@ Ce dépôt git contient les fichiers qui servent à l'administration
 du serveur LinuxFr.org -- pas les informations confidentielles ;)
 
 
-Install on Debian Lenny
------------------------
+Install on Debian Squeeze
+-------------------------
 
 On commence par installer quelques paquets debian pour jouer :
 
-    # aptitude install vim git-core zsh ack-grep curl openssl colordiff
+    # aptitude install vim git zsh ack-grep curl openssl colordiff
     # aptitude install python-pygments
 
 Et de quoi compiler :
@@ -23,17 +23,14 @@ Si vous le souhaitez, vous pouvez en profiter pour mettre en place un Openssh :
     # aptitude install openssh-server
     # /etc/init.d/ssh start
 
-Un serveur web, nginx (en utilisant les backports) :
+Un serveur web, nginx :
 
-    # echo 'deb http://www.backports.org/debian lenny-backports main contrib non-free' > /etc/apt/sources.list.d/30lenny-backports.list
-    # aptitude update
-    # aptitude install debian-backports-keyring
-    # aptitude -t lenny-backports install nginx
+    # aptitude install nginx
     # Ajouter la ligne "image/svg+xml  svg svgz;" à /etc/nginx/mime.types
 
 Un mysql, avec création de la base de données :
 
-    # aptitude -t lenny-backports install mysql-server mysql-client libmysql++-dev
+    # aptitude install mysql-server mysql-client libmysql++-dev
     # cp conf/mysql/conf.d/* /etc/mysql/conf.d/
     # /etc/init.d/mysql restart
     # mysql -p -u root
@@ -44,9 +41,15 @@ Un mysql, avec création de la base de données :
 
 Ruby 1.9.2 (livré avec rubygems) :
 
-    # echo 'deb http://deb.bearstech.com ruby-1.9.2-i386/' > /etc/apt/sources.list.d/40bearstech.list
+    # echo 'deb http://deb.bearstech.com ruby-1.9.2-i386/' >> /etc/apt/sources.list.d/40bearstech.list
     # aptitude update
     # aptitude install ruby1.9.1 ruby1.9.1-dev
+
+Redis :
+
+    # echo 'deb http://deb.bearstech.com redis/' >> /etc/apt/sources.list.d/40bearstech.list
+    # aptitude update
+    # aptitude install redis-server
 
 On va maintenant se créer un compte utilisateur linuxfr :
 
@@ -80,12 +83,6 @@ Déployer l'application Rails à distance avec capistrano :
     # chmod -R a+r /usr/share/git-core/templates
     (desktop) $ cap env:production deploy:check
     (desktop) $ cap env:production deploy:update
-
-Installer redis :
-
-    $ wget "http://redis.googlecode.com/files/redis-2.0.4.tar.gz"
-    $ tar xvzf redis-2.0.4.tar.gz
-    $ cd redis-2.0.4 && make && ./redis-server redis.conf
 
 Import des données existantes en provenance de templeet :
 
