@@ -50,6 +50,8 @@ Redis :
     # echo 'deb http://deb.bearstech.com redis/' >> /etc/apt/sources.list.d/40bearstech.list
     # aptitude update
     # aptitude install redis-server
+    # ln -sf /var/www/linuxfr/admin/conf/redis/redis.conf /etc/redis/
+    # /etc/init.d/redis-server start
 
 On va maintenant se créer un compte utilisateur linuxfr :
 
