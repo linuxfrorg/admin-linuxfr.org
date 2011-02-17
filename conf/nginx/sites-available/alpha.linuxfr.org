@@ -11,7 +11,8 @@ upstream board-frontend {
 
 server {
     server_name alpha.linuxfr.org;
-    access_log /var/log/nginx/alpha.access.log;
+    access_log /data/alpha/logs/alpha/access.log;
+    error_log /data/alpha/logs/alpha/error.log log;
     root /var/www/alpha/alpha/current/public;
 
     listen 80;

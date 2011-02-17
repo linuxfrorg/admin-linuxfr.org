@@ -1,6 +1,5 @@
 export RAILS_ENV=production
 export GEM_HOME="$HOME/gem"
-export RUBYLIB="$HOME/lib"
 export PATH="$HOME/bin:$GEM_HOME/bin:$PATH"
 export REDIS_URL="redis://127.0.0.1:6379/0"
 alias maintenance='echo "En maintenance" > ~/$RAILS_ENV/current/public/system/maintenance.html'

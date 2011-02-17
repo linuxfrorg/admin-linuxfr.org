@@ -1,0 +1,14 @@
+/data/alpha/logs/*/*.log {
+	daily
+	missingok
+	rotate 9999
+	dateext
+	compress
+	delaycompress
+	notifempty
+	create 640 root adm
+	sharedscripts
+	postrotate
+		[ ! -f /var/run/nginx.pid ] || kill -USR1 `cat /var/run/nginx.pid`
+	endscript
+}

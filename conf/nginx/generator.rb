@@ -39,7 +39,8 @@ upstream board-frontend {
 
 server {
     server_name <%= fqdn %>;
-    access_log /var/log/nginx/<%= user %>.access.log;
+    access_log /data/<%= user %>/logs/<%= user %>/access.log;
+    error_log /data/<%= user %>/logs/<%= user %>/error.log log;
     root /var/www/<%= user %>/<%= env %>/current/public;
 
     listen 80;
