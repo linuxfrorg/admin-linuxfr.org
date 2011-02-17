@@ -12,7 +12,7 @@ upstream board-frontend {
 server {
     server_name alpha.linuxfr.org;
     access_log /data/alpha/logs/alpha/access.log;
-    error_log /data/alpha/logs/alpha/error.log log;
+    error_log /data/alpha/logs/alpha/error.log error;
     root /var/www/alpha/alpha/current/public;
 
     listen 80;

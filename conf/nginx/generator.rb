@@ -40,7 +40,7 @@ upstream board-frontend {
 server {
     server_name <%= fqdn %>;
     access_log /data/<%= user %>/logs/<%= user %>/access.log;
-    error_log /data/<%= user %>/logs/<%= user %>/error.log log;
+    error_log /data/<%= user %>/logs/<%= user %>/error.log error;
     root /var/www/<%= user %>/<%= env %>/current/public;
 
     listen 80;

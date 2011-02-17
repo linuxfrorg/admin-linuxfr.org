@@ -12,7 +12,7 @@ upstream board-frontend {
 server {
     server_name linuxfr.org;
     access_log /data/linuxfr/logs/linuxfr/access.log;
-    error_log /data/linuxfr/logs/linuxfr/error.log log;
+    error_log /data/linuxfr/logs/linuxfr/error.log error;
     root /var/www/linuxfr/production/current/public;
 
     listen 80;
