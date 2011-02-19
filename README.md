@@ -98,7 +98,7 @@ Installer la crontab :
 
 Lancer le serveur applicatif (unicorn) :
 
-    # cp /data/prod/linuxfr/admin/init.d/unicorn /etc/init.d/
+    # ln -sf /data/prod/linuxfr/admin/init.d/unicorn /etc/init.d/
     # /etc/init.d/unicorn start
     # update-rc.d unicorn defaults 99
 
