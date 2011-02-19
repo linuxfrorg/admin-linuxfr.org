@@ -54,9 +54,9 @@ Redis :
 
 On va maintenant se créer un compte utilisateur linuxfr :
 
-    # adduser --home /data/web/linuxfr --gecos 'LinuxFr <linuxfr@linuxfr>' --disabled-password linuxfr
+    # adduser --home /data/prod/linuxfr --gecos 'LinuxFr <linuxfr@linuxfr>' --disabled-password linuxfr
     # mkdir /www
-    # ln -s /data/web/linuxfr /www/linuxfr.org
+    # ln -s /data/prod/linuxfr /www/linuxfr.org
 
 Si vous souhaitez vous connecter en ssh, c'est probablement le bon moment pour
 ajouter votre clé ssh publique à `/var/www/linuxfr/.ssh/authorized_keys`.

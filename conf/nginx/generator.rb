@@ -13,12 +13,15 @@ end
 case env = ARGV.first
 when "local"
   user    = "nono"
+  vserver = "nono"
   fqdn    = "dlfp.lo"
 when "alpha"
   user    = "alpha"
+  vserver = "alpha"
   fqdn    = "alpha.linuxfr.org"
 when "production"
   user    = "linuxfr"
+  vserver = "prod"
   fqdn    = "linuxfr.org"
 end
 
@@ -39,8 +42,8 @@ upstream board-frontend {
 
 server {
     server_name <%= fqdn %>;
-    access_log /data/<%= user %>/logs/<%= user %>/access.log;
-    error_log /data/<%= user %>/logs/<%= user %>/error.log error;
+    access_log /data/<%= vserver %>/logs/<%= user %>/access.log;
+    error_log /data/<%= vserver %>/logs/<%= user %>/error.log error;
     root /var/www/<%= user %>/<%= env %>/current/public;
 
     listen 80;
