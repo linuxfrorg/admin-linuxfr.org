@@ -26,7 +26,6 @@ Si vous le souhaitez, vous pouvez en profiter pour mettre en place un Openssh :
 Un serveur web, nginx :
 
     # aptitude install nginx
-    # Ajouter la ligne "image/svg+xml  svg svgz;" à /etc/nginx/mime.types
 
 Un mysql, avec création de la base de données :
 
@@ -104,6 +103,7 @@ Lancer le serveur applicatif (unicorn) :
 Mettre en place la conf nginx :
 
     # ln -sf /var/www/linuxfr/admin/conf/nginx/nginx.conf /etc/nginx/
+    # ln -sf /var/www/linuxfr/admin/conf/nginx/mime.types /etc/nginx/
     # ln -s /var/www/linuxfr/admin/conf/nginx/sites-available/linuxfr.org /etc/nginx/sites-available/
     # ln -s /etc/nginx/sites-available/linuxfr.org /etc/nginx/sites-enabled/
 
