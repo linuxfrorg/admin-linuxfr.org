@@ -15,13 +15,13 @@ USER=linuxfr
 HOME=~$USER
 RAILS_ENV=production
 DAEMON=unicorn
-DAEMON_ARGS="-c $HOME/$RAILS_ENV/current/config/unicorn.rb"
+DAEMON_ARGS="-c $HOME/$RAILS_ENV/current/config/unicorn.rb -D"
 PID=`cat $HOME/$RAILS_ENV/shared/pids/unicorn.pid`
 
 as_user() {
   if [ "xroot" != "x`whoami`" ]
   then
-    sh -c "$2"
+    bash -c "$2"
   else
     su - -c "$2" $1
   fi
