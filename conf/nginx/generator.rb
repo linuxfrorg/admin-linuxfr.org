@@ -101,7 +101,7 @@ server {
     location / {
         # Redirections to preserve templeet URL
         rewrite ^/(pub|my|wap|pda|i|interviews|newsletter|rdf|sidebar|usenet)(/.*)?$ / permanent;
-        rewrite ^.*\.rss$ /backend.rss last;
+        rewrite ^.*\.rss$ /backend.rss break;
         rewrite ^/\d+/\d+/\d+/(\d+)\.html$ /news/$1 permanent;
         rewrite ^/(\d+/\d+/\d+)/index.html$ /$1 permanent;
         rewrite ^/topics/([^,./]*)(,.*)?(.html)?$ /section/$1 permanent;
