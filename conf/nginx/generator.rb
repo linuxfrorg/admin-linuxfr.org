@@ -103,6 +103,7 @@ server {
         rewrite ^/(pub|my|wap|pda|i|interviews|newsletter|rdf|sidebar|usenet)(/.*)?$ / permanent;
         rewrite ^.*\.rss$ /backend.rss last;
         rewrite ^/\d+/\d+/\d+/(\d+)\.html$ /news/$1 permanent;
+        rewrite ^/(\d+/\d+/\d+)/index.html$ /$1 permanent;
         rewrite ^/topics/([^,./]*)(,.*)?(.html)?$ /section/$1 permanent;
         rewrite ^/~([^/]*)/?$ /users/$1 permanent;
         rewrite ^/~([^/]*)/(\d+)\.html$ /users/$1/journaux/$2 permanent;
@@ -118,6 +119,7 @@ server {
         rewrite ^/moderateurs/moderation.html$ /regles_de_moderation permanent;
         rewrite ^/moderateurs.*$ /team permanent;
         rewrite ^/redacteurs.*$ /redaction permanent;
+        rewrite ^/board/remote.xml$ /board/index.xml permanent;
         rewrite ^/bouchot.*$ /board permanent;
         rewrite ^/logos\.html$ /images/logos/ permanent;
 
