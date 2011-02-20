@@ -84,6 +84,7 @@ server {
         rewrite ^/forums/(\d+).+$ /forums/$1 permanent;
         rewrite ^/tracker.*$ /suivi permanent;
         rewrite ^/aide.+$ /aide permanent;
+        rewrite ^/users/?$ /tableau-de-bord permanent;
         rewrite ^/dons.*$ /faire_un_don permanent;
         rewrite ^/moderateurs/moderation.html$ /regles_de_moderation permanent;
         rewrite ^/moderateurs.*$ /team permanent;
