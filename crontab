@@ -1,0 +1,21 @@
+Crontab de linuxfr :
+
+SHELL=/bin/bash
+
+# Maintenance une fois par jour : votes, karmas, tribunes, sitemap, etc.
+1 0 * * *  rake linuxfr:daily
+
+
+Crontab de root :
+
+SHELL=/bin/bash
+SCRIPTS_DIR=/etc/linuxfr
+
+# traitement des logs et sauvegarde journalière
+15 3     * * *     root     cd ${SCRIPTS_DIR} && ${SCRIPTS_DIR}/backup-linuxfr-daily.sh
+
+# sauvegarde hebdo
+15 5     * * 0     root     cd ${SCRIPTS_DIR} && ${SCRIPTS_DIR}/backup-linuxfr-weekly.sh
+
+# courbes RRD surveillance serveur
+0-59/1 * * * *     root     cd ${SCRIPTS_DIR} && ${SCRIPTS_DIR}/rrd/makestats.sh &>/dev/null

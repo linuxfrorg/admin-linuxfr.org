@@ -1,0 +1,7 @@
+DATABASE=linuxfr
+WEB_DOMAINNAME="xxxx.linuxfr.org"
+LINUXFR_DIR="/xxxx/xxxx"
+GRAPHS_DIR="${LINUXFR_DIR}/linuxfr/load"
+WEBLOGS_DIR="${LINUXFR_DIR}/logs"
+SCRIPTS_DIR="${LINUXFR_DIR}/linuxfr/admin/scripts"
+BACKUP_DIR="${LINUXFR_DIR}/backup"
