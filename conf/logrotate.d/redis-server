@@ -1,8 +1,8 @@
 /var/log/redis/*.log {
-        weekly
+        daily
         missingok
         copytruncate
-        rotate 12
+        rotate 20
         compress
         notifempty
 }

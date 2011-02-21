@@ -7,5 +7,6 @@ mysqldump ${DATABASE} | gzip > ${BACKUP_DIR}/linuxfr-weekly.dump.gz
 mysqldump -F mysql | gzip > ${BACKUP_DIR}/mysql-weekly.dump.gz
 gzip -c /var/lib/redis/dump.rdb > ${BACKUP_DIR}/redis-weekly.rdb.gz
 
-# We flush the logs
+# MySQL
+mysql linuxfr -e"FLUSH QUERY CACHE;" > /dev/null
 #mysqladmin flush-logs
