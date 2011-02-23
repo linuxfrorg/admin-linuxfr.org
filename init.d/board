@@ -12,7 +12,8 @@
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 USER=linuxfr
-HOME=/var/www/$USER
+VSERVER=`hostname`
+HOME=/www/$VSERVER/$USER
 PIDFILE=$HOME/board/board.pid
 
 as_user() {

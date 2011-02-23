@@ -98,6 +98,10 @@ server {
     	proxy_pass http://board-frontend;
     }
 
+    location ^~ /webalizer {
+        root /data/<%= vserver %>/logs;
+    }
+
     location / {
         # Redirections to preserve templeet URL
         rewrite ^/(pub|my|wap|pda|i|interviews|newsletter|rdf|sidebar|usenet)(/.*)?$ / permanent;

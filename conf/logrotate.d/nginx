@@ -2,7 +2,6 @@
 	daily
 	missingok
 	rotate 9999
-	dateext
 	compress
 	delaycompress
 	notifempty

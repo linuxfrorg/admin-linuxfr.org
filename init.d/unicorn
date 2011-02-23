@@ -12,7 +12,8 @@
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 USER=linuxfr
-HOME=~$USER
+VSERVER=`hostname`
+HOME=/www/$VSERVER/$USER
 RAILS_ENV=production
 DAEMON=unicorn
 DAEMON_ARGS="-c $HOME/$RAILS_ENV/current/config/unicorn.rb -D"
