@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Pass nginx yesterday's logs to webalizer and then compress them
+
+. "/etc/linuxfr/conf.sh"
+LOG_DATE=$(date +'%Y/%m/%d' -d 'yesterday')
+
+# run the daily stats, and shut down some useless warnings
+webalizer -c $WEBALIZER_CONF | grep -v "String exceeds" | grep -v "Truncating oversized referrer"
+
+# compress the logs and move them out of the way
+cd $WEBLOGS_DIR
+mkdir -p $LOG_DATE
+
+cd $WEBALIZER_INPUT
+xz access.log.1
+xz error.log.1
+
+mv access.log.1.xz ${WEBLOGS_DIR}/${LOG_DATE}/access.log.xz
+mv error.log.1.xz  ${WEBLOGS_DIR}/${LOG_DATE}/error.log.xz
+

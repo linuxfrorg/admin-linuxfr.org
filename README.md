@@ -51,7 +51,7 @@ N'oubliez pas de créer le fichier `ruby-env`, sourcé depuis le
 
 On retourne en root pour installer Redis :
 
-    # echo 'deb http://deb.bearstech.com redis/' >> /etc/apt/sources.list.d/40bearstech.list
+    # echo 'deb http://deb.bearstech.com redis-386/' >> /etc/apt/sources.list.d/40bearstech.list
     # aptitude update
     # aptitude install redis-server
     # ln -sf /data/prod/linuxfr/admin/conf/redis/redis.conf /etc/redis/
