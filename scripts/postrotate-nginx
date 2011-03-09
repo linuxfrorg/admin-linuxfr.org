@@ -6,7 +6,7 @@
 LOG_DATE=$(date +'%Y/%m/%d' -d 'yesterday')
 
 # run the daily stats, and shut down some useless warnings
-webalizer -c $WEBALIZER_CONF | grep -v "String exceeds" | grep -v "Truncating oversized referrer"
+webalizer -c $WEBALIZER_CONF 2>&1 | grep -v "String exceeds" | grep -v "Truncating oversized referrer"
 
 # compress the logs and move them out of the way
 cd $WEBLOGS_DIR
