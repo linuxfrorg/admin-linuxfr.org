@@ -114,8 +114,8 @@ server {
         rewrite ^/~([^/]*)/(\d+)\.html$ /users/$1/journaux/$2 permanent;
         rewrite ^/~([^/]*)/news.*$ /users/$1/news permanent;
         rewrite ^/~([^/]*)/forums.*$ /users/$1/posts permanent;
-        rewrite ^/~([^/]*)/tracker*$ /users/$1/suivi permanent;
-        rewrite ^/~([^/]*)/comments*$ /users/$1/comments permanent;
+        rewrite ^/~([^/]*)/tracker.*$ /users/$1/suivi permanent;
+        rewrite ^/~([^/]*)/comments.*$ /users/$1/comments permanent;
         rewrite ^/forums/(\d+)/(\d+)\.html$ /forums/$1/posts/$2 permanent;
         rewrite ^/forums/(\d+).+$ /forums/$1 permanent;
         rewrite ^/journal.*$ /journaux permanent;
