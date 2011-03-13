@@ -56,12 +56,6 @@ server {
 
     add_header X-Frame-Options DENY;
 
-    proxy_set_header X_FORWARDED_PROTO $scheme;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Host $http_host;
-    proxy_redirect off;
-
     proxy_max_temp_file_size 0;
     client_max_body_size 2M;
 
@@ -70,6 +64,7 @@ server {
     error_page  500 502 503 504  /errors/500.html;
 
     merge_slashes on;
+    keepalive_timeout 5;
 
     set $redirect_to_https $cookie_https/$scheme;
     if ($redirect_to_https = '1/http') {
@@ -78,11 +73,11 @@ server {
 
     # Dispatching
     location ~* \.(css|js|ico|gif|jpe?g|png|svg|xcf|ttf|otf|dtd)$ {
-    	expires 10d;
-    	if ($args ~* [0-9]+$) {
-    		expires max;
-    		break;
-    	}
+        expires 10d;
+        if ($args ~* [0-9]+$) {
+            expires max;
+            break;
+        }
     }
 <% if env == "alpha" %>
     location = /robots.txt {
@@ -90,12 +85,12 @@ server {
     }
 <% end %>
     location ~* ^/(fonts|images|javascripts|stylesheets) {
-    	autoindex on;
-    	break;
+        autoindex on;
+        break;
     }
 
     location ^~ /b/ {
-    	proxy_pass http://board-frontend;
+        proxy_pass http://board-frontend;
     }
 
     location ^~ /webalizer {
@@ -130,16 +125,21 @@ server {
         rewrite ^/bouchot.*$ /board permanent;
         rewrite ^/logos\.html$ /images/logos/ permanent;
 
-    	try_files $uri /pages/$uri /pages/$uri.html @dynamic;
+        try_files $uri /pages/$uri /pages/$uri.html @dynamic;
     }
 
     location @dynamic {
-    	if (-f $document_root/system/maintenance.html ) {
-    		error_page 503 /system/maintenance.html;
-    		return 503;
-    	}
+        if (-f $document_root/system/maintenance.html ) {
+            error_page 503 /system/maintenance.html;
+            return 503;
+        }
 
-    	proxy_pass http://linuxfr-frontend;
+        proxy_set_header X_FORWARDED_PROTO $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_pass http://linuxfr-frontend;
     }
 }
 
