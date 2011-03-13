@@ -41,6 +41,10 @@ server {
     }
 
     # Dispatching
+    location ^~ /images/load/ {
+        expires 5m;
+    }
+
     location ~* \.(css|js|ico|gif|jpe?g|png|svg|xcf|ttf|otf|dtd)$ {
         expires 10d;
         if ($args ~* [0-9]+$) {
