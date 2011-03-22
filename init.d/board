@@ -18,7 +18,7 @@ PIDFILE=$HOME/board/board.pid
 as_user() {
   if [ "xroot" != "x`whoami`" ]
   then
-    sh -c "$2"
+    bash -c "$2"
   else
     su - -c "$2" $1
   fi
