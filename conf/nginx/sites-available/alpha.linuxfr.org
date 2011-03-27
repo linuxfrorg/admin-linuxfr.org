@@ -42,6 +42,7 @@ server {
 
     # Dispatching
     location ^~ /images/load/ {
+        autoindex on;
         expires 5m;
     }
 
@@ -68,6 +69,11 @@ server {
 
     location ^~ /webalizer {
         root /data/alpha/logs;
+    }
+
+    # Don't try to respond to PHP/ASP/Apple pages
+    location ~* \.(php|asp|aspx|labels.rdf|apple-touch-icon(-precomposed)?.png)$ {
+      return 404;
     }
 
     location / {
@@ -97,6 +103,7 @@ server {
         rewrite ^/board/remote.xml$ /board/index.xml permanent;
         rewrite ^/bouchot.*$ /board permanent;
         rewrite ^/logos\.html$ /images/logos/ permanent;
+        rewrite ^/submit.html$ /news/nouveau permanent;
 
         try_files $uri /pages/$uri /pages/$uri.html @dynamic;
     }
