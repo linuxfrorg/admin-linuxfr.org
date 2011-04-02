@@ -68,8 +68,8 @@ server {
     }
 
     # Don't try to respond to PHP/ASP/Apple pages
-    location ~* \.(php|asp|aspx|labels.rdf|apple-touch-icon(-precomposed)?.png)$ {
-      return 404;
+    location ~* \.(php|asp|aspx|jsp|cgi|labels.rdf|apple-touch-icon(-precomposed)?.png)$ {
+      return 410;
     }
 
     location / {
