@@ -11,12 +11,12 @@ Install on Debian Squeeze
 On commence par installer quelques paquets debian pour jouer :
 
     # aptitude install vim git zsh ack-grep curl openssl colordiff
-    # aptitude install python-pygments
+    # aptitude install python-pygments imagemagick hunspell hunspell-fr
 
 Et de quoi compiler :
 
     # aptitude install build-essential autoconf libxml2-dev libreadline-dev libssl-dev
-    # aptitude install libxslt1-dev imagemagick zlib1g-dev
+    # aptitude install libxslt1-dev zlib1g-dev
 
 Si vous le souhaitez, vous pouvez en profiter pour mettre en place un Openssh :
 
