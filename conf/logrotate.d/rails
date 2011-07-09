@@ -1,4 +1,4 @@
-/www/linuxfr.org/production/current/log/*.log {
+/var/www/linuxfr/production/current/log/*.log {
         daily
         missingok
         rotate 3

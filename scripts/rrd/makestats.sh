@@ -67,7 +67,7 @@ rrdtool graph -w 800 -h 260 -a PNG ${GRAPHS_DIR}/load-semestre.png \
 	GPRINT:avg1:LAST:"Last\: %lf%s" > /dev/null
 
 # Reseau
-rrdtool update ${SCRIPTS_DIR}/rrd/network-eth2.rrd `sed '/^dummy0/!d;s%dummy0:%%' /proc/net/dev|awk '{printf "N:%s:%s",$1,$9}'`
+rrdtool update ${SCRIPTS_DIR}/rrd/network-eth2.rrd `sed '/^eth0/!d;s%eth0:%%' /proc/net/dev|awk '{printf "N:%s:%s",$1,$9}'`
 
 # Daily Graph
 rrdtool graph ${GRAPHS_DIR}/network-eth2-day.png --start -86400 \

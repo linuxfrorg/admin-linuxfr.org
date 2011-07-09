@@ -1,9 +1,0 @@
----
-chdir: /var/www/linuxfr/prod
-pid: /var/www/linuxfr/prod/tmp/pids/thin.pid
-socket: /var/www/linuxfr/prod/tmp/sockets/production.sock
-log: /var/www/linuxfr/prod/log/thin.log
-timeout: 5
-environment: production
-daemonize: true
-servers: 4

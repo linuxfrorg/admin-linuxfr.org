@@ -1,4 +1,4 @@
-/www/linuxfr.org/board/board.log {
+/var/www/linuxfr/board/board.log {
         daily
         missingok
         rotate 3

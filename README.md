@@ -30,8 +30,7 @@ Un serveur web, nginx :
 On va maintenant se créer un compte utilisateur linuxfr :
 
     # adduser --home /data/prod/linuxfr --gecos 'LinuxFr <linuxfr@linuxfr>' --disabled-password linuxfr
-    # mkdir /www
-    # ln -s /data/prod/linuxfr /www/linuxfr.org
+    # ln -s /data/prod/linuxfr /var/www/linuxfr
 
 Si vous souhaitez vous connecter en ssh, c'est probablement le bon moment pour
 ajouter votre clé ssh publique à `/data/prod/linuxfr/.ssh/authorized_keys` et
