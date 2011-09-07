@@ -3,7 +3,7 @@ Crontab de linuxfr :
 SHELL=/bin/bash
 
 # Maintenance une fois par jour : votes, karmas, tribunes, sitemap, etc.
-1 0 * * *          rake linuxfr:daily
+1 0 * * *          bundle exec rake linuxfr:daily
 
 
 Crontab de root :

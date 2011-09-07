@@ -22,6 +22,7 @@ server {
     ssl_certificate ssl.crt/alpha.linuxfr.org.crt;
     ssl_certificate_key ssl.key/alpha.linuxfr.org.key;
     ssl_session_cache shared:SSL:2m;
+    ssl_ciphers ALL:!aNULL:!ADH:!eNULL:!MEDIUM:!LOW:!EXP:RC4 RSA: HIGH;
 
     add_header X-Frame-Options DENY;
 

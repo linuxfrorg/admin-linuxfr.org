@@ -53,6 +53,7 @@ server {
     ssl_certificate ssl.crt/<%= fqdn %>.crt;
     ssl_certificate_key ssl.key/<%= fqdn %>.key;
     ssl_session_cache shared:SSL:2m;
+    ssl_ciphers ALL:!aNULL:!ADH:!eNULL:!MEDIUM:!LOW:!EXP:RC4 RSA: HIGH;
 
     add_header X-Frame-Options DENY;
 
