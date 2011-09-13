@@ -1,0 +1,54 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          share-linuxfr
+# Required-Start:    $local_fs $remote_fs $network $nginx
+# Required-Stop:     $local_fs $remote_fs $network $nginx
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts the share-linuxfr daemon
+### END INIT INFO
+#
+# Install with: update-rc.d share defaults 99
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+USER=linuxfr
+HOME=/data/prod/$USER
+PIDFILE=$HOME/share/share-linuxfr.pid
+
+as_user() {
+  if [ "xroot" != "x`whoami`" ]
+  then
+    bash -c "$2"
+  else
+    su - -c "$2" $1
+  fi
+}
+
+case "$1" in
+  start)
+    echo "Starting share for user '$USER'"
+    as_user $USER "source ~/ruby-env; cd $HOME/share; share-linuxfr share.yml"
+    echo "."
+    ;;
+
+  stop)
+    echo "Stopping share for user '$USER'"
+    kill -QUIT `cat $PIDFILE`
+    echo "."
+    ;;
+
+  restart)
+    echo "Restarting share for user '$USER'"
+    kill -QUIT `cat $PIDFILE`
+    sleep 2
+    rm -f $PIDFILE
+    as_user $USER "source ~/ruby-env; cd $HOME/share; share-linuxfr share.yml"
+    echo "."
+    ;;
+
+  *)
+    echo "Usage: /etc/init.d/share {start|stop|restart}"
+    exit 1
+esac
+
+exit 0
