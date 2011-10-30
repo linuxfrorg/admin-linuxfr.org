@@ -1,3 +1,5 @@
 TODO
 scripts/conf.sh
+scripts/ipdates.txt
+scripts/ips.txt
 scripts/rrd/*.rrd

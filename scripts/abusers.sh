@@ -1,13 +1,13 @@
 #!/bin/sh
 
-CONTAINER="prod"
-WEBLOGS_DIR="/data/prod/logs/linuxfr"
+. "conf.sh"
+
 now=$(date +%s)
+IPS_FILE="ips.txt"
 IPDATES_FILE="ipdates.txt"
 IPDATES_FILE_TMP="ipdates.txt.tmp"
-IPDATES_TEMPLATE="/data/${CONTAINER}/linuxfr/production/current/tmp/abusers.txt"
-IPS_FILE="ips.txt"
-LOGS_FILE="/data/${CONTAINER}/logs/linuxfr/access.log"
+IPDATES_TEMPLATE="${LINUXFR_DIR}/${USERNAME}/production/current/tmp/abusers.txt"
+LOGS_FILE="${WEBLOGS_DIR}/${USERNAME}/access.log"
 
 update_ipdates_file() {
 for i in $1 
