@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. "conf.sh"
+. "./conf.sh"
 
 now=$(date +%s)
 IPS_FILE="ips.txt"

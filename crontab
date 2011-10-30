@@ -19,3 +19,6 @@ SCRIPTS_DIR=/etc/linuxfr
 
 # courbes RRD surveillance serveur
 0-59/1 * * * *     cd ${SCRIPTS_DIR} && ./rrd/makestats.sh &>/dev/null
+
+# script abusers
+*/15 * * * *       cd ${SCRIPTS_DIR} && ./abusers.sh
