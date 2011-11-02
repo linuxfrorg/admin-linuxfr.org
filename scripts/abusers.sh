@@ -46,6 +46,7 @@ update_ipdates_file ${ips}
 fi
 
 # Template pour affichage côté web
+> ${IPDATES_TEMPLATE}
 test -f ${IPDATES_FILE} && cat "${IPDATES_FILE}"|while read d i n ;
 do
   echo $(date +"%d/%m %H:%M" -d "1970/01/01 + $d seconds") " $i $n" >> ${IPDATES_TEMPLATE}

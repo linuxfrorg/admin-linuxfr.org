@@ -21,4 +21,4 @@ SCRIPTS_DIR=/etc/linuxfr
 0-59/1 * * * *     cd ${SCRIPTS_DIR} && ./rrd/makestats.sh &>/dev/null
 
 # script abusers
-*/15 * * * *       cd ${SCRIPTS_DIR} && ./abusers.sh
+0 * * * *          cd ${SCRIPTS_DIR} && ./abusers.sh
