@@ -96,6 +96,7 @@ server {
     }
 
     location ^~ /b/ {
+        proxy_buffering off;
         proxy_pass http://board-frontend;
     }
 
