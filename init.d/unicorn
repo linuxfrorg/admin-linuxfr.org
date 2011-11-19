@@ -12,11 +12,12 @@
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 USER=linuxfr
-HOME=/data/prod/$USER
+CONTAINER=prod
+HOME=/data/$CONTAINER/$USER
 RAILS_ENV=production
 DAEMON=unicorn
 DAEMON_ARGS="-c $HOME/$RAILS_ENV/current/config/unicorn.rb -D"
-PID=`cat $HOME/$RAILS_ENV/shared/pids/unicorn.pid`
+PIDFILE=$HOME/$RAILS_ENV/shared/pids/unicorn.pid
 
 as_user() {
   if [ "xroot" != "x`whoami`" ]
@@ -36,12 +37,13 @@ case "$1" in
 
   stop)
     echo "Stopping unicorn for user '$USER'"
-    kill -QUIT $PID
+    kill -QUIT `cat $PIDFILE`
     echo "."
     ;;
 
   restart)
     echo "Restarting unicorn for user '$USER'"
+    PID=`cat $PIDFILE`
     kill -USR2 $PID
     sleep 1
     kill -QUIT $PID
@@ -50,7 +52,7 @@ case "$1" in
 
   reload)
     echo "Reloading unicorn configuration for user '$USER'"
-    kill -HUP $PID
+    kill -HUP `cat $PIDFILE`
     echo "."
     ;;
 

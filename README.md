@@ -38,7 +38,7 @@ modifier `/etc/ssh/sshd_config` pour whitelister cet utilisateur.
 
 Vous pouvez maintenant vous logger avec cet utilisateur et en profiter pour
 installer vos fichiers _dotfiles_ (les miens sont sur
-http://github.com/nono/dotfiles si ça vous intéresse).
+https://github.com/nono/dotfiles si ça vous intéresse).
 
 N'oubliez pas de créer le fichier `ruby-env`, sourcé depuis le
 `{bash|zsh}rc` :
@@ -50,7 +50,7 @@ N'oubliez pas de créer le fichier `ruby-env`, sourcé depuis le
 
 On retourne en root pour installer Redis :
 
-    # echo 'deb http://deb.bearstech.com redis-386/' >> /etc/apt/sources.list.d/40bearstech.list
+    # echo 'deb http://deb.bearstech.com/squeeze redis/' >> /etc/apt/sources.list.d/40bearstech.list
     # aptitude update
     # aptitude install redis-server
     # ln -sf /data/prod/linuxfr/admin/conf/redis/redis.conf /etc/redis/
@@ -68,9 +68,9 @@ Un mysql, avec création de la base de données :
     > GRANT ALL PRIVILEGES ON linuxfr_production.* TO linuxfr@localhost;
     (si /var est une partition avec peu de place, ne pas oublier de déplacer /var/lib/mysql ailleurs)
 
-Ruby 1.9.2 (livré avec rubygems) :
+Ruby 1.9.3 (livré avec rubygems) :
 
-    # echo 'deb http://deb.bearstech.com ruby-1.9.2-i386/' >> /etc/apt/sources.list.d/40bearstech.list
+    # echo 'deb http://deb.bearstech.com/squeeze ruby-1.9.3/' >> /etc/apt/sources.list.d/40bearstech.list
     # aptitude update
     # aptitude install ruby1.9.1 ruby1.9.1-dev
 
@@ -88,7 +88,7 @@ Déployer l'application Rails à distance avec capistrano :
 
 Import des données existantes en provenance de templeet :
 
-    $ w3m http://github.com/nono/migration-linuxfr.org
+    $ w3m https://github.com/nono/migration-linuxfr.org
 
 Installer la crontab :
 
@@ -115,4 +115,10 @@ http://wiki.nginx.org/NginxHttpSslModule#Generate\_Certificates
 Puis relancer nginx :
 
     # /etc/init.d/nginx restart
+
+On peut alors finit l'installation avec :
+
+* webalizer
+* [board-linuxfr](https://github.com/nono/board-sse-linuxfr.org)
+* [share-linuxfr](https://github.com/nono/share-LinuxFr.org)
 
