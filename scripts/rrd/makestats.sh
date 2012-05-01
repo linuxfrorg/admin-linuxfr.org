@@ -67,7 +67,7 @@ rrdtool graph -w 800 -h 260 -a PNG ${GRAPHS_DIR}/load-semestre.png \
 	GPRINT:avg1:LAST:"Last\: %lf%s" > /dev/null
 
 # Reseau
-rrdtool update ${SCRIPTS_DIR}/rrd/network-eth2.rrd `sed '/^eth0/!d;s%eth0:%%' /proc/net/dev|awk '{printf "N:%s:%s",$1,$9}'`
+rrdtool update ${SCRIPTS_DIR}/rrd/network-eth2.rrd `sed '/eth0/!d;s%eth0:%%' /proc/net/dev|awk '{printf "N:%s:%s",$1,$9}'`
 
 # Daily Graph
 rrdtool graph ${GRAPHS_DIR}/network-eth2-day.png --start -86400 \
@@ -81,7 +81,7 @@ rrdtool graph ${GRAPHS_DIR}/network-eth2-day.png --start -86400 \
 	GPRINT:b:AVERAGE:"Moy\: %.2lf%s" \
 	GPRINT:b:MAX:"Max\: %.2lf%s" \
 	GPRINT:b:LAST:"Dernier\: %.2lf%s" \
-	AREA:a#FF0000:"Trafic sortant en bits" \
+	AREA:a#FF0000:"Trafic entrant en bits" \
 	LINE1:a#000000 \
 	GPRINT:a:AVERAGE:"Moy\: %.2lf%s" \
 	GPRINT:a:MAX:"Max\: %.2lf%s" \

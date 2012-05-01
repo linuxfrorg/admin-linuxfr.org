@@ -7,7 +7,7 @@ GPG_LUKHAS="--encrypt-key 12A22DAB"
 GPG_NONO="--encrypt-key CE5B6885"
 GPG_KEYS="${GPG_RUFFY} ${GPG_NONO} ${GPG_LUKHAS}"
 
-BACKUP_ZONE="scp://root@zobe.linuxfr.org//data/backup/gruik_duplicity"
+BACKUP_ZONE="scp://backupgruik@zobe.linuxfr.org//data/backup/gruik_duplicity"
 BACKUP_LOG="/var/log/backup_gruik.log"
 
 touch ${BACKUP_LOG}

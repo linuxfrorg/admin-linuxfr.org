@@ -37,11 +37,11 @@ test -f ${IPDATES_FILE} && cut -f2 -d" " < ${IPDATES_FILE} > ${IPS_FILE}
 
 if [ -r "${LOGS_FILE}" ]; then
 # Trop de fois la même URL
-ips=$(tail -n 100000 ${LOGS_FILE}| sed -n "s/^\([^-]*\)-.*\[.*\][^\"]*\"\([^\"]*\)\".*$/\1 \2/p" | sort | uniq -c | awk '{if($1>1200) {print $2}}')
+ips=$(tail -n 100000 ${LOGS_FILE}| sed -n "s/^\([^-]*\)-.*\[.*\][^\"]*\"\([^\"]*\)\".*$/\1 \2/p" | sort | uniq -c | awk '{if($1>2500) {print $2}}')
 update_ipdates_file ${ips} 
 
 # Trop de fois la même IP source
-ips=$(tail -n 100000 ${LOGS_FILE}| sed -n "s/^\([^-]*\).*$/\1/p" | sort | uniq -c | awk '{if($1>2500) {print $2}}')
+ips=$(tail -n 100000 ${LOGS_FILE}| sed -n "s/^\([^-]*\).*$/\1/p" | sort | uniq -c | awk '{if($1>2750) {print $2}}')
 update_ipdates_file ${ips}
 fi
 
