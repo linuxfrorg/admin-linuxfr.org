@@ -3,6 +3,7 @@ types {
     text/css                              css;
     text/xml                              xml xsl rss;
     application/x-javascript              js;
+	application/json                      json;
     application/atom+xml                  atom;
 
     text/mathml                           mml;
