@@ -97,6 +97,7 @@ server {
         rewrite ^/moderateurs.*$ /team permanent;
         rewrite ^/redacteurs.*$ /redaction permanent;
         rewrite ^/board/remote.xml$ /board/index.xml permanent;
+        rewrite ^/board.xml$ /board/index.xml permanent;
         rewrite ^/bouchot.*$ /board permanent;
         rewrite ^/logos\.html$ /images/logos/ permanent;
         rewrite ^/submit.html$ /news/nouveau permanent;
