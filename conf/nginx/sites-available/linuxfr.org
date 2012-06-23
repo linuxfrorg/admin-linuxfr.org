@@ -53,10 +53,6 @@ server {
 
     location ~* \.(css|js|ico|gif|jpe?g|png|svg|xcf|ttf|otf|dtd)$ {
         expires 10d;
-        if ($args ~* [0-9a-f]{16}) {
-            expires max;
-            break;
-        }
     }
 
     location ~* ^/(fonts|images|javascripts|stylesheets) {
