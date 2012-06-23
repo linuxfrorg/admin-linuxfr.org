@@ -39,6 +39,10 @@ upstream board-frontend {
     server unix:/var/www/<%= user %>/board/board.sock;
 }
 
+upstream img-frontend {
+    server 127.0.0.1:8000;
+}
+
 
 server {
     server_name <%= fqdn %>;
@@ -96,6 +100,11 @@ server {
     location ^~ /b/ {
         proxy_buffering off;
         proxy_pass http://board-frontend;
+    }
+
+    location ^~ /img/ {
+        proxy_buffering off;
+        proxy_pass http://img-frontend;
     }
 
     location ^~ /webalizer {
