@@ -59,6 +59,8 @@ server {
     ssl_session_cache shared:SSL:2m;
     ssl_ciphers HIGH:!aNULL:!MD5:!kEDH;
 
+    add_header X-Content-Type-Options nosniff;
+
     proxy_max_temp_file_size 0;
     client_max_body_size 2M;
 
