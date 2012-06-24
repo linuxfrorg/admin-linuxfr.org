@@ -2,7 +2,7 @@ Admin LinuxFr.org
 =================
 
 Ce dépôt git contient les fichiers qui servent à l'administration
-du serveur LinuxFr.org -- pas les informations confidentielles ;)
+du serveur LinuxFr.org -- pas les informations confidentielles ;-)
 
 
 Install on Debian Squeeze
@@ -45,8 +45,10 @@ N'oubliez pas de créer le fichier `ruby-env`, sourcé depuis le
 
     $ git clone git://github.com/nono/admin-linuxfr.org.git admin
     $ ln -s ~/admin/dotfiles/ruby-env .
-    $ vim .bashrc   ## Ajouter "source ~/ruby-env" au début
+    $ ln -s ~/admin/dotfiles/go-env .
+    $ vim .bashrc   ## Ajouter "source ~/ruby-env ; source ~/go-env" au début
     $ source ruby-env
+    $ source go-env
 
 On retourne en root pour installer Redis :
 
@@ -121,4 +123,5 @@ On peut alors finit l'installation avec :
 * webalizer
 * [board-linuxfr](https://github.com/nono/board-sse-linuxfr.org)
 * [share-linuxfr](https://github.com/nono/share-LinuxFr.org)
+* [img-linuxfr](https://github.com/nono/img-LinuxFr.org)
 
