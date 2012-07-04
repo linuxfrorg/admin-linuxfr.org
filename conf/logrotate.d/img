@@ -1,0 +1,9 @@
+/var/www/linuxfr/img/img*.log {
+        daily
+        missingok
+        rotate 10
+        compress
+        nodelaycompress
+        notifempty
+        copytruncate
+}

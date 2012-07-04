@@ -13,12 +13,11 @@
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 USER=linuxfr
 CONTAINER=prod
-RAILS_ENV=production
 HOME=/data/$CONTAINER/$USER
+LOG=/data/$CONTAINER/logs/img/img.log
 NAME=img-LinuxFr.org
 DAEMON=$HOME/go/bin/$NAME
-SECRET=$(awk '/images/ {print $2}' $HOME/$RAILS_ENV/shared/config/secret.yml)
-DAEMON_OPTS="-s $SECRET -d $HOME/img"
+DAEMON_OPTS="-l $LOG -d $HOME/img"
 PIDFILE=/var/run/$NAME.pid
 
 case "$1" in
@@ -32,8 +31,7 @@ case "$1" in
 
   stop)
     echo "Stopping $NAME"
-	start-stop-daemon --stop --quiet --pidfile $PIDFILE \
-		--exec $DAEMON -- $DAEMON_OPTS || true
+	start-stop-daemon --stop --quiet --pidfile $PIDFILE || true
     echo "."
     ;;
 
@@ -43,8 +41,7 @@ case "$1" in
 		--exec $DAEMON -- $DAEMON_OPTS || true
     sleep 2
 	start-stop-daemon --start --background --make-pidfile --quiet \
-		--pidfile $PIDFILE --chuid $USER:$USER \
-		--exec $DAEMON -- $DAEMON_OPTS || true
+		--pidfile $PIDFILE --chuid $USER:$USER || true
     echo "."
     ;;
 
