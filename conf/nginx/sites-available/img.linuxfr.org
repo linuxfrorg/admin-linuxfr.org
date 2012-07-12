@@ -12,7 +12,7 @@ server {
     listen 443 ssl;
 
     ssl_protocols SSLv3 TLSv1;
-    ssl_certificate ssl.crt/alpha.linuxfr.org.crt;
+    ssl_certificate ssl.crt/linuxfr.org.crt;
     ssl_certificate_key ssl.key/linuxfr.org.key;
     ssl_session_cache shared:SSL:2m;
     ssl_ciphers HIGH:!aNULL:!MD5:!kEDH;
