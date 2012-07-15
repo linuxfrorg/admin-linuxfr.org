@@ -37,11 +37,11 @@ case "$1" in
 
   restart)
     echo "Restarting $NAME"
-	start-stop-daemon --stop --quiet --pidfile $PIDFILE \
-		--exec $DAEMON -- $DAEMON_OPTS || true
+	start-stop-daemon --stop --quiet --pidfile $PIDFILE || true
     sleep 2
 	start-stop-daemon --start --background --make-pidfile --quiet \
-		--pidfile $PIDFILE --chuid $USER:$USER || true
+		--pidfile $PIDFILE --chuid $USER:$USER \
+		--exec $DAEMON -- $DAEMON_OPTS || true
     echo "."
     ;;
 
