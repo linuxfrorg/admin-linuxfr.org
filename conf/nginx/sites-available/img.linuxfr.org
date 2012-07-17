@@ -6,7 +6,7 @@ server {
     server_name img.linuxfr.org;
     access_log /data/prod/logs/img/access.log;
     error_log /data/prod/logs/img/error.log error;
-    root /var/www/linuxfr/production/img/public;
+    root /var/www/linuxfr/production/current/uploads;
 
     listen 80;
     listen 443 ssl;
@@ -19,8 +19,12 @@ server {
 
     add_header X-Content-Type-Options nosniff;
 
-    location ^~ /img/ {
+    location / {
+        try_files $uri @img;
+    }
+
+	location @img {
         proxy_buffering off;
         proxy_pass http://img-frontend;
-    }
+	}
 }
