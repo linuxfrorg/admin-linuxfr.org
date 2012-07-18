@@ -1,4 +1,4 @@
-/data/prod/logs/*/*.log {
+/data/prod/logs/*/access*.log /data/prod/logs/*/error*.log {
 	daily
 	missingok
 	rotate 9999
