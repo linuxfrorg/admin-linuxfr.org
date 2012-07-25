@@ -11,12 +11,6 @@ server {
     listen 80;
     listen 443 ssl;
 
-    ssl_protocols SSLv3 TLSv1;
-    ssl_certificate ssl.crt/alpha.linuxfr.org.crt;
-    ssl_certificate_key ssl.key/alpha.linuxfr.org.key;
-    ssl_session_cache shared:SSL:2m;
-    ssl_ciphers HIGH:!aNULL:!MD5:!kEDH;
-
     add_header X-Content-Type-Options nosniff;
 
     location / {

@@ -47,13 +47,7 @@ server {
     root /var/www/<%= user %>/<%= env %>/current/public;
 
     listen 80;
-    listen 443 default ssl;
-
-    ssl_protocols SSLv3 TLSv1;
-    ssl_certificate ssl.crt/<%= fqdn %>.crt;
-    ssl_certificate_key ssl.key/<%= fqdn %>.key;
-    ssl_session_cache shared:SSL:2m;
-    ssl_ciphers HIGH:!aNULL:!MD5:!kEDH;
+    listen 443 default_server ssl;
 
     add_header X-Content-Type-Options nosniff;
 
