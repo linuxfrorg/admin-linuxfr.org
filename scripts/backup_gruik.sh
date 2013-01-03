@@ -12,7 +12,7 @@ BACKUP_LOG="/var/log/backup_gruik.log"
 
 touch ${BACKUP_LOG}
 
-duplicity remove-all-but-n-full 1 ${BACKUP_ZONE} >> ${BACKUP_LOG}
+duplicity remove-all-but-n-full 1 --force ${BACKUP_ZONE} >> ${BACKUP_LOG}
 
 PASSPHRASE=  duplicity ${GPG_KEYS} --exclude /proc --exclude /dev --exclude /sys --exclude /var/run --exclude /var/lock --exclude /cgroup --volsize 1000 --full-if-older-than $(date -d '21 days ago'  '+%Y/%m/%d') / ${BACKUP_ZONE} >> ${BACKUP_LOG}
 
