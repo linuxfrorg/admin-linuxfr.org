@@ -57,5 +57,5 @@ types {
     application/vnd.ms-fontobject         eot;
     font/opentype                         otf;
     font/truetype                         ttf;
-    font/woff                             woff;
+    application/font-woff                 woff;
 }
