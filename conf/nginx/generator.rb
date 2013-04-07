@@ -128,6 +128,7 @@ server {
         rewrite ^/bouchot.*$ /board permanent;
         rewrite ^/logos\.html$ /images/logos/ permanent;
         rewrite ^/submit.html$ /news/nouveau permanent;
+        rewrite ^/association/index.html$ /informations permanent;
 
         try_files $uri /pages/$uri /pages/$uri.html @dynamic;
     }
