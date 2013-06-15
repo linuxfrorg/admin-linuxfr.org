@@ -17,8 +17,8 @@ server {
         try_files $uri @img;
     }
 
-	location @img {
+    location @img {
         proxy_buffering off;
         proxy_pass http://img-frontend;
-	}
+    }
 }
