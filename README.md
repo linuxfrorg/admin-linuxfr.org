@@ -123,5 +123,6 @@ On peut alors finit l'installation avec :
 * webalizer
 * [board-linuxfr](https://github.com/nono/board-sse-linuxfr.org)
 * [share-linuxfr](https://github.com/nono/share-LinuxFr.org)
+* [epub-linuxfr](https://github.com/nono/epub-LinuxFr.org)
 * [img-linuxfr](https://github.com/nono/img-LinuxFr.org)
 

@@ -39,6 +39,10 @@ upstream board-frontend {
     server unix:/var/www/<%= user %>/board/board.sock;
 }
 
+upstream epub-frontend {
+    server 127.0.0.1:9000;
+}
+
 
 server {
     server_name <%= fqdn %>;
@@ -70,6 +74,11 @@ server {
     location ^~ /images/load/ {
         autoindex on;
         expires 5m;
+    }
+
+    location ^~ \.epub$ {
+        proxy_buffering off;
+        proxy_pass http://epub-frontend;
     }
 
     location ~* \.(css|js|ico|gif|jpe?g|png|svg|xcf|ttf|otf|dtd)$ {

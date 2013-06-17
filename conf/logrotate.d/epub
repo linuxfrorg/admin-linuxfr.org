@@ -1,0 +1,9 @@
+/data/prod/logs/epub/epub*.log {
+        daily
+        missingok
+        rotate 10
+        compress
+        nodelaycompress
+        notifempty
+        copytruncate
+}
