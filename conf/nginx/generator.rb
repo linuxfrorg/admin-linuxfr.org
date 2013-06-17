@@ -76,7 +76,7 @@ server {
         expires 5m;
     }
 
-    location ^~ \.epub$ {
+    location ~* \.epub$ {
         proxy_buffering off;
         proxy_pass http://epub-frontend;
     }

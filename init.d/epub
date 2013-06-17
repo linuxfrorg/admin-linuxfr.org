@@ -17,7 +17,7 @@ HOME=/data/$CONTAINER/$USER
 LOG=/data/$CONTAINER/logs/epub/epub.log
 NAME=epub-LinuxFr.org
 DAEMON=$HOME/go/bin/$NAME
-DAEMON_OPTS="-l $LOG -d $HOME/epub"
+DAEMON_OPTS="-l $LOG"
 PIDFILE=/var/run/$NAME.pid
 
 case "$1" in
