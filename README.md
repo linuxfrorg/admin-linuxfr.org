@@ -70,11 +70,11 @@ Un mysql, avec création de la base de données :
     > GRANT ALL PRIVILEGES ON linuxfr_production.* TO linuxfr@localhost;
     (si /var est une partition avec peu de place, ne pas oublier de déplacer /var/lib/mysql ailleurs)
 
-Ruby 1.9.3 (livré avec rubygems) :
+Ruby 2.0.0 (livré avec rubygems) :
 
-    # echo 'deb http://deb.bearstech.com/squeeze ruby-1.9.3/' >> /etc/apt/sources.list.d/40bearstech.list
+    # echo 'deb http://deb.bearstech.com/squeeze ruby-2.0/' >> /etc/apt/sources.list.d/40bearstech.list
     # aptitude update
-    # aptitude install ruby1.9.1 ruby1.9.1-dev
+    # aptitude install ruby2.0 ruby2.0-dev
 
 Puis, on continue avec notre utilisateur linuxfr
 et on installe quelques gems qui vont bien :
