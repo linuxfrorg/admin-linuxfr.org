@@ -6,17 +6,93 @@ GPG_RUFFY="--encrypt-key 97FE3CFD"
 GPG_LUKHAS="--encrypt-key 12A22DAB"
 GPG_NONO="--encrypt-key CE5B6885"
 GPG_KEYS="${GPG_RUFFY} ${GPG_NONO} ${GPG_LUKHAS}"
+export PASSPHRASE=
 
 BACKUP_ZONE="scp://backupgruik@zobe.linuxfr.org//data/backup/gruik_duplicity"
 BACKUP_LOG="/var/log/backup_gruik.log"
+BACKUP_LOG_TMP=$(mktemp)
+BACKUP_EXCLUDE="--exclude /proc --exclude /dev --exclude /sys --exclude /var/run --exclude /var/lock --exclude /cgroup"
+
+MAILDEST="root@linuxfr.org"
+DATE=$(date +%Y%m%d)
+MAILSUBJECT="Duplicity log: $1 backup - date: ${DATE}"
+NB_FULLBACKUP_TO_KEEP=2
+
+LOGPART="|& tee ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}"
 
 touch ${BACKUP_LOG}
 
-duplicity remove-all-but-n-full 1 --force ${BACKUP_ZONE} >> ${BACKUP_LOG}
+usage()
+{
+  echo "Usage: $0 [full|incremental|clean]"
+  echo "To restore, need private key and password"
+  echo "  $0 restore [--time date_to_restore] file_to_restore directory_where_to_restore gpg_dir_with_private_key"
+  exit 1
+}
 
-PASSPHRASE=  duplicity ${GPG_KEYS} --exclude /proc --exclude /dev --exclude /sys --exclude /var/run --exclude /var/lock --exclude /cgroup --volsize 1000 --full-if-older-than $(date -d '21 days ago'  '+%Y/%m/%d') / ${BACKUP_ZONE} >> ${BACKUP_LOG}
+# $1 == incr or full
+duplicity_backup()
+{
+  echo "Start $1 backup job at $(date)" | tee -a ${BACKUP_LOG_TMP} >> ${BACKUP_LOG}
+  duplicity $1 ${GPG_KEYS} ${BACKUP_EXCLUDE} --volsize 1000 / ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
+}
 
-# old version with rsync+ssh
+duplicity_clean()
+{
+  echo "Start cleaning backups at $(date)" | tee -a ${BACKUP_LOG_TMP} >> ${BACKUP_LOG}
+  duplicity remove-all-but-n-full ${NB_FULLBACKUP_TO_KEEP} ${GPG_KEYS} ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
+  duplicity clean --force --extra-clean ${GPG_KEYS} ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
+}
+
+case "$1" in
+  incremental)
+    duplicity_backup incr
+  ;;
+  full)
+    duplicity_backup full
+    duplicity_clean
+  ;;
+  restore)
+    if [[ $# -ne 4 ]] && [[ $# -ne 6 ]]
+    then
+      usage
+    fi
+    if [[ $2 == "--time" ]]
+    then
+      TIME="$2 $3"
+      shift 2
+    fi
+    echo "Start restoring at $(date) file $2 into $3 ${TIME:+with }${TIME} (not logged)"
+    unset PASSPHRASE
+    GNUPGHOME=$4 duplicity restore ${GPG_KEYS} ${TIME} --file-to-restore "$2" ${BACKUP_ZONE} "$3"
+    RET=$?
+    echo "End restoring at $(date) (not logged)"
+    exit $?
+  ;;
+  clean)
+    duplicity_clean
+  ;;
+  *)
+    usage
+  ;;
+esac
+
+# No private GPG keys available so don't try to verify backup
+#echo "Starting verify backup at $(date)" >> ${BACKUP_LOG}
+#duplicity verify ${GPG_KEYS} -vn ${BACKUP_ZONE} / &>> ${BACKUP_LOG}
+
+duplicity collection-status ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
+
+echo "Job finished at $(date)" |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
+
+mail -s "${MAILSUBJECT}" "${MAILDEST}" < ${BACKUP_LOG_TMP}
+rm ${BACKUP_LOG_TMP}
+
+# old basic version with duplicity
+#duplicity remove-all-but-n-full 1 --force ${BACKUP_ZONE} >> ${BACKUP_LOG}
+#PASSPHRASE=  duplicity ${GPG_KEYS} --exclude /proc --exclude /dev --exclude /sys --exclude /var/run --exclude /var/lock --exclude /cgroup --volsize 1000 --full-if-older-than $(date -d '21 days ago'  '+%Y/%m/%d') / ${BACKUP_ZONE} >> ${BACKUP_LOG}
+
+# old old version with rsync+ssh
 #ionice -c3 rsync --size-only --numeric-ids --delete-before -avHz -e ssh \
 #--exclude=/proc --exclude=/dev --exclude=/sys \
 #--exclude=/var/lib/vservers/*/dev --exclude=/var/lib/vservers/*/proc \
