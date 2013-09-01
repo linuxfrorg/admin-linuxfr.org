@@ -96,6 +96,9 @@ Installer la crontab :
 
     $ crontab -e
     0 1 * * *   source ruby-env && cd $RAILS_ENV/current && rake linuxfr:daily
+    */5 * * * * ~/board/bin/board-mon.sh
+    */5 * * * * ~/share/share-mon.sh
+
 
 Lancer le serveur applicatif (unicorn) :
 

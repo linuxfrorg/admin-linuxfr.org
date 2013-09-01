@@ -30,3 +30,12 @@ SCRIPTS_DIR=/etc/linuxfr
 
 # extraction des données de webalizer
 5 3      1 * *     cd /data/prod/logs/webalizer && ${SCRIPTS_DIR}/webalizer_data.sh
+
+
+
+Crontab de gruik :
+
+# Backups
+42 4 * * 0   /etc/linuxfr/backup_gruik.sh full
+42 4 * * 1-6 /etc/linuxfr/backup_gruik.sh incremental
+
