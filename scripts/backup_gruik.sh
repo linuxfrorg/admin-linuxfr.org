@@ -11,9 +11,10 @@ export PASSPHRASE=
 BACKUP_ZONE="scp://backupgruik@zobe.linuxfr.org//data/backup/gruik_duplicity"
 BACKUP_LOG="/var/log/backup_gruik.log"
 BACKUP_LOG_TMP=$(mktemp)
-BACKUP_EXCLUDE="--exclude /proc --exclude /dev --exclude /sys --exclude /var/run --exclude /var/lock --exclude /cgroup"
+BACKUP_EXCLUDE="--exclude /proc --exclude /dev --exclude /sys --exclude /var/run --exclude /var/lock --exclude /cgroup --exclude **/var/cache/apt/archives/** --exclude /root/old_not_backupped"
 
 MAILDEST="root@linuxfr.org"
+MAILDEST="ruffy@linuxfr.org"
 DATE=$(date +%Y%m%d)
 MAILSUBJECT="Duplicity log: $1 backup - date: ${DATE}"
 NB_FULLBACKUP_TO_KEEP=2
@@ -40,7 +41,7 @@ duplicity_backup()
 duplicity_clean()
 {
   echo "Start cleaning backups at $(date)" | tee -a ${BACKUP_LOG_TMP} >> ${BACKUP_LOG}
-  duplicity remove-all-but-n-full ${NB_FULLBACKUP_TO_KEEP} ${GPG_KEYS} ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
+  duplicity remove-all-but-n-full ${NB_FULLBACKUP_TO_KEEP} --force ${GPG_KEYS} ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
   duplicity clean --force --extra-clean ${GPG_KEYS} ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
 }
 
