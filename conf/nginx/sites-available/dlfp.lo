@@ -1,0 +1,103 @@
+upstream linuxfr-frontend {
+    #server unix:/home/nono/dev/linuxfr.org/tmp/sockets/development.sock fail_timeout=0;
+	server 127.0.0.1:3000;
+}
+
+upstream board-frontend {
+    server unix:/home/nono/dev/board/board.sock;
+}
+
+upstream img-frontend {
+    server 127.0.0.1:8000;
+}
+
+server {
+    server_name dlfp.lo;
+    access_log /var/log/nginx/dlfp.access.log;
+    root /home/nono/dev/linuxfr.org/public;
+
+    listen 80;
+    listen 443 default ssl;
+
+    ssl_protocols SSLv3 TLSv1;
+    ssl_certificate server.crt;
+    ssl_certificate_key server.key;
+    ssl_session_cache shared:SSL:2m;
+
+	add_header X-Content-Type-Options nosniff;
+
+    proxy_max_temp_file_size 0;
+    client_max_body_size 2M;
+
+    merge_slashes on;
+    keepalive_timeout 5;
+
+    set $redirect_to_https $cookie_https/$scheme;
+    if ($redirect_to_https = '1/http') {
+        rewrite ^(.*)$ https://dlfp.lo$1 break;
+    }
+
+    location ^~ /b/ {
+        proxy_buffering off;
+        proxy_pass http://board-frontend;
+    }
+
+    location ^~ /img/ {
+        proxy_buffering off;
+        proxy_pass http://img-frontend;
+    }
+
+	location ^~ /avatars/ {
+        proxy_buffering off;
+        proxy_pass http://img-frontend;
+	}
+
+    location / {
+        # Redirections to preserve templeet URL
+        rewrite ^/(pub|my|wap|pda|i|interviews|newsletter|rdf|sidebar|usenet)(/.*)?$ / permanent;
+        rewrite ^/backend/news-homepage/rss20.rss$ /backend-news.rss break;
+        rewrite ^.*\.rss$ /backend.rss break;
+        rewrite ^/\d+/\d+/\d+/(\d+)\.html$ /news/$1 permanent;
+        rewrite ^/(\d+/\d+/\d+)/index.html$ /$1 permanent;
+        rewrite ^/topics/([^,./]*)(,.*)?(.html)?$ /section/$1 permanent;
+        rewrite ^/~([^/]*)/?$ /users/$1 permanent;
+        rewrite ^/~([^/]*)/(\d+)\.html$ /users/$1/journaux/$2 permanent;
+        rewrite ^/~([^/]*)/news.*$ /users/$1/news permanent;
+        rewrite ^/~([^/]*)/forums.*$ /users/$1/posts permanent;
+        rewrite ^/~([^/]*)/tracker.*$ /users/$1/suivi permanent;
+        rewrite ^/~([^/]*)/comments.*$ /users/$1/comments permanent;
+        rewrite ^/forums/(\d+)/(\d+)\.html$ /forums/$1/posts/$2 permanent;
+        rewrite ^/forums/(\d+)\.+$ /forums/$1 permanent;
+        rewrite ^/journal.*$ /journaux permanent;
+        rewrite ^/tracker.*$ /suivi permanent;
+        rewrite ^/aide.+$ /aide permanent;
+        rewrite ^/users/?$ /tableau-de-bord permanent;
+        rewrite ^/dons.*$ /faire_un_don permanent;
+        rewrite ^/moderateurs/moderation.html$ /regles_de_moderation permanent;
+        rewrite ^/moderateurs.*$ /team permanent;
+        rewrite ^/redacteurs.*$ /redaction permanent;
+        rewrite ^/board/remote.xml$ /board/index.xml permanent;
+        rewrite ^/bouchot.*$ /board permanent;
+        rewrite ^/logos\.html$ /images/logos/ permanent;
+        rewrite ^/submit.html$ /news/nouveau permanent;
+
+		# Dev mode
+		rewrite ^/favicon.png$ /images/default-avatar.png;
+
+        try_files $uri /pages/$uri /pages/$uri.html @dynamic;
+    }
+
+    location @dynamic {
+        if (-f $document_root/system/maintenance.html ) {
+            error_page 503 /system/maintenance.html;
+            return 503;
+        }
+
+        proxy_set_header X_FORWARDED_PROTO $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_pass http://linuxfr-frontend;
+    }
+}
