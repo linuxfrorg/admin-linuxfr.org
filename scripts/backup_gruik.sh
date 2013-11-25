@@ -3,8 +3,8 @@
 LC_ALL=C
 
 GPG_RUFFY="--encrypt-key 618D63E9"
-GPG_LUKHAS="--encrypt-key 12A22DAB"
-GPG_NONO="--encrypt-key CE5B6885"
+GPG_LUKHAS="--encrypt-key D87E3219"
+GPG_NONO="--encrypt-key 3BB7675F"
 GPG_KEYS="${GPG_RUFFY} ${GPG_NONO} ${GPG_LUKHAS}"
 export PASSPHRASE=
 
