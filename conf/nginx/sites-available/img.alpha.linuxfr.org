@@ -14,6 +14,7 @@ server {
     add_header X-Content-Type-Options nosniff;
 
     location / {
+        expires 1h;
         try_files $uri @img;
     }
 
