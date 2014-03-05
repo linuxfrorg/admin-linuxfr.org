@@ -20,6 +20,8 @@ DAEMON=$HOME/go/bin/$NAME
 DAEMON_OPTS="-l $LOG -d $HOME/img"
 PIDFILE=/var/run/$NAME.pid
 
+test -e /etc/default/img && . /etc/default/img
+
 case "$1" in
   start)
     echo "Starting $NAME"
