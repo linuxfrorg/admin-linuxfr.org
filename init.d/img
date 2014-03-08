@@ -8,7 +8,7 @@
 # Short-Description: starts the img daemon
 ### END INIT INFO
 #
-# Install with: update-rc.d img defaults 99
+# Install with: insserv img
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 USER=linuxfr
@@ -20,28 +20,29 @@ DAEMON=$HOME/go/bin/$NAME
 DAEMON_OPTS="-l $LOG -d $HOME/img"
 PIDFILE=/var/run/$NAME.pid
 
+set -e
+
 case "$1" in
   start)
     echo "Starting $NAME"
 	start-stop-daemon --start --background --make-pidfile --quiet \
 		--pidfile $PIDFILE --chuid $USER:$USER \
-		--exec $DAEMON -- $DAEMON_OPTS || true
+		--exec $DAEMON -- $DAEMON_OPTS
     echo "."
     ;;
 
   stop)
     echo "Stopping $NAME"
-	start-stop-daemon --stop --quiet --pidfile $PIDFILE || true
+	start-stop-daemon --stop --quiet --pidfile $PIDFILE
     echo "."
     ;;
 
   restart)
     echo "Restarting $NAME"
-	start-stop-daemon --stop --quiet --pidfile $PIDFILE || true
-    sleep 2
+	start-stop-daemon --stop --retry 10 --quiet --pidfile $PIDFILE
 	start-stop-daemon --start --background --make-pidfile --quiet \
 		--pidfile $PIDFILE --chuid $USER:$USER \
-		--exec $DAEMON -- $DAEMON_OPTS || true
+		--exec $DAEMON -- $DAEMON_OPTS
     echo "."
     ;;
 
@@ -49,5 +50,3 @@ case "$1" in
     echo "Usage: /etc/init.d/img {start|stop|restart}"
     exit 1
 esac
-
-exit 0

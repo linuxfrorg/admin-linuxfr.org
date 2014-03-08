@@ -8,7 +8,7 @@
 # Short-Description: starts the board daemon
 ### END INIT INFO
 #
-# Install with: update-rc.d board defaults 99
+# Install with: insserv board
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 USER=linuxfr
@@ -54,5 +54,3 @@ case "$1" in
     echo "Usage: /etc/init.d/board {start|stop|restart}"
     exit 1
 esac
-
-exit 0

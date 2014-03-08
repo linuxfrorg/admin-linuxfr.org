@@ -8,7 +8,7 @@
 # Short-Description: starts the unicorn web server
 ### END INIT INFO
 #
-# Install with: update-rc.d unicorn defaults 99
+# Install with: insserv unicorn
 
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 USER=linuxfr
@@ -60,5 +60,3 @@ case "$1" in
     echo "Usage: /etc/init.d/unicorn {start|stop|reload|restart}"
     exit 1
 esac
-
-exit 0
