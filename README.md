@@ -52,11 +52,18 @@ N'oubliez pas de créer le fichier `ruby-env`, sourcé depuis le
 
 On retourne en root pour installer Redis :
 
-    # echo 'deb http://deb.bearstech.com/squeeze redis/' >> /etc/apt/sources.list.d/40bearstech.list
+    # echo 'deb http://deb.bearstech.com/debian wheezy-bearstech main' >> /etc/apt/sources.list.d/40bearstech.list
     # aptitude update
     # aptitude install redis-server
     # ln -sf /data/prod/linuxfr/admin/conf/redis/redis.conf /etc/redis/
     # /etc/init.d/redis-server start
+
+Et ElasticSearch :
+
+    # echo 'deb http://deb.bearstech.com/squeeze elasticsearch/' >> /etc/apt/sources.list.d/40bearstech.list
+    # aptitude update
+    # aptitude install elasticsearch
+    # /etc/init.d/elasticsearch start
 
 Un mysql, avec création de la base de données :
 
@@ -70,11 +77,13 @@ Un mysql, avec création de la base de données :
     > GRANT ALL PRIVILEGES ON linuxfr_production.* TO linuxfr@localhost;
     (si /var est une partition avec peu de place, ne pas oublier de déplacer /var/lib/mysql ailleurs)
 
-Ruby 2.0.0 (livré avec rubygems) :
+PhantomJS (pour SVGTeX) :
 
-    # echo 'deb http://deb.bearstech.com/squeeze ruby-2.0/' >> /etc/apt/sources.list.d/40bearstech.list
-    # aptitude update
-    # aptitude install ruby2.0 ruby2.0-dev
+    # aptitude install phantomjs
+
+Ruby 2.1.1 (livré avec rubygems) :
+
+    # aptitude install ruby2.1 ruby2.1-dev
 
 Puis, on continue avec notre utilisateur linuxfr
 et on installe quelques gems qui vont bien :
@@ -128,4 +137,4 @@ On peut alors finit l'installation avec :
 * [share-linuxfr](https://github.com/nono/share-LinuxFr.org)
 * [epub-linuxfr](https://github.com/nono/epub-LinuxFr.org)
 * [img-linuxfr](https://github.com/nono/img-LinuxFr.org)
-
+* [SVGTeX](https://github.com/linuxfrorg/svgtex)
