@@ -16,8 +16,8 @@ CONTAINER=prod
 HOME=/data/$CONTAINER/$USER
 LOG=/data/$CONTAINER/logs/svgtex/svtex.log
 NAME=svgtex
-DAEMON=phantomjs
-DAEMON_OPTS="main.js"
+DAEMON=/usr/bin/phantomjs
+DAEMON_OPTS="$HOME/svgtex/main.js"
 PIDFILE=/var/run/$NAME.pid
 
 set -e
@@ -26,7 +26,7 @@ case "$1" in
   start)
     echo "Starting $NAME"
 	start-stop-daemon --start --background --make-pidfile --quiet \
-		--no-close --pidfile $PIDFILE --chuid $USER:$USER \
+		--no-close --pidfile $PIDFILE --chuid $USER:$USER --chdir $HOME/svgtex \
 		--exec $DAEMON -- $DAEMON_OPTS > $LOG 2>&1
     echo "."
     ;;
@@ -41,7 +41,7 @@ case "$1" in
     echo "Restarting $NAME"
 	start-stop-daemon --stop --retry 10 --quiet --pidfile $PIDFILE
 	start-stop-daemon --start --background --make-pidfile --quiet \
-		--no-close --pidfile $PIDFILE --chuid $USER:$USER \
+		--no-close --pidfile $PIDFILE --chuid $USER:$USER --chdir $HOME/svgtex \
 		--exec $DAEMON -- $DAEMON_OPTS > $LOG 2>&1
     echo "."
     ;;
