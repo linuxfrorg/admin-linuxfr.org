@@ -16,6 +16,11 @@ CONTAINER=prod
 HOME=/data/$CONTAINER/$USER
 RAILS_ENV=production
 DAEMON=unicorn
+
+if test -e /etc/default/$DAEMON ; then
+  . /etc/default/$DAEMON
+fi
+
 DAEMON_ARGS="-c $HOME/$RAILS_ENV/current/config/unicorn.rb -D"
 PIDFILE=$HOME/$RAILS_ENV/shared/pids/unicorn.pid
 
@@ -31,7 +36,7 @@ as_user() {
 case "$1" in
   start)
     echo "Starting unicorn for user '$USER'"
-    as_user $USER "source ~/ruby-env; cd $HOME/$RAILS_ENV/current; bundle exec $DAEMON $DAEMON_ARGS"
+    as_user $USER ". ~/ruby-env; cd $HOME/$RAILS_ENV/current; bundle exec $DAEMON $DAEMON_ARGS"
     echo "."
     ;;
 
