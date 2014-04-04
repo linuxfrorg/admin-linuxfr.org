@@ -13,6 +13,10 @@ server {
 
     add_header X-Content-Type-Options nosniff;
 
+    location ~* ^/(fonts|images|javascripts|stylesheets) {
+		rewrite ^/(.*) $scheme://linuxfr.org/$1 permanent;
+    }
+
     location / {
         expires 1h;
         try_files $uri @img;
