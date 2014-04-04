@@ -13,7 +13,7 @@ server {
 
     add_header X-Content-Type-Options nosniff;
 
-    location ~* ^/(fonts|images|javascripts|stylesheets) {
+    location ~* ^/(fonts|images|javascripts) {
 		rewrite ^/(.*) $scheme://linuxfr.org/$1 permanent;
     }
 
