@@ -38,12 +38,12 @@ modifier `/etc/ssh/sshd_config` pour whitelister cet utilisateur.
 
 Vous pouvez maintenant vous logger avec cet utilisateur et en profiter pour
 installer vos fichiers _dotfiles_ (les miens sont sur
-https://github.com/nono/dotfiles si ça vous intéresse).
+https://github.com/linuxfrorg/dotfiles si ça vous intéresse).
 
 N'oubliez pas de créer le fichier `ruby-env`, sourcé depuis le
 `{bash|zsh}rc` :
 
-    $ git clone git://github.com/nono/admin-linuxfr.org.git admin
+    $ git clone git://github.com/linuxfrorg/admin-linuxfr.org.git admin
     $ ln -s ~/admin/dotfiles/ruby-env .
     $ ln -s ~/admin/dotfiles/go-env .
     $ vim .bashrc   ## Ajouter "source ~/ruby-env ; source ~/go-env" au début
@@ -99,7 +99,7 @@ Déployer l'application Rails à distance avec capistrano :
 
 Import des données existantes en provenance de templeet :
 
-    $ w3m https://github.com/nono/migration-linuxfr.org
+    $ w3m https://github.com/linuxfrorg/migration-linuxfr.org
 
 Installer la crontab :
 
@@ -133,8 +133,8 @@ Puis relancer nginx :
 On peut alors finit l'installation avec :
 
 * webalizer
-* [board-linuxfr](https://github.com/nono/board-sse-linuxfr.org)
-* [share-linuxfr](https://github.com/nono/share-LinuxFr.org)
-* [epub-linuxfr](https://github.com/nono/epub-LinuxFr.org)
-* [img-linuxfr](https://github.com/nono/img-LinuxFr.org)
+* [board-linuxfr](https://github.com/linuxfrorg/board-sse-linuxfr.org)
+* [share-linuxfr](https://github.com/linuxfrorg/share-LinuxFr.org)
+* [epub-linuxfr](https://github.com/linuxfrorg/epub-LinuxFr.org)
+* [img-linuxfr](https://github.com/linuxfrorg/img-LinuxFr.org)
 * [SVGTeX](https://github.com/linuxfrorg/svgtex)
