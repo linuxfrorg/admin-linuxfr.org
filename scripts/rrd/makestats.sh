@@ -67,13 +67,13 @@ rrdtool graph -w 800 -h 260 -a PNG ${GRAPHS_DIR}/load-semestre.png \
 	GPRINT:avg1:LAST:"Last\: %lf%s" > /dev/null
 
 # Reseau
-rrdtool update ${SCRIPTS_DIR}/rrd/network-eth2.rrd `sed '/eth0/!d;s%eth0:%%' /proc/net/dev|awk '{printf "N:%s:%s",$1,$9}'`
+rrdtool update ${SCRIPTS_DIR}/rrd/network-eth.rrd `sed '/eth0/!d;s%eth0:%%' /proc/net/dev|awk '{printf "N:%s:%s",$1,$9}'`
 
 # Daily Graph
-rrdtool graph ${GRAPHS_DIR}/network-eth2-day.png --start -86400 \
+rrdtool graph ${GRAPHS_DIR}/network-eth-day.png --start -86400 \
 	--title="Stats reseau LinuxFr.org (${DATE})" -v "bits" -a PNG -u=512000 \
-	DEF:inoctets=${SCRIPTS_DIR}/rrd/network-eth2.rrd:input:AVERAGE \
-	DEF:outoctets=${SCRIPTS_DIR}/rrd/network-eth2.rrd:output:AVERAGE \
+	DEF:inoctets=${SCRIPTS_DIR}/rrd/network-eth.rrd:input:AVERAGE \
+	DEF:outoctets=${SCRIPTS_DIR}/rrd/network-eth.rrd:output:AVERAGE \
 	CDEF:a=inoctets,8,* \
 	CDEF:b=outoctets,8,* \
 	AREA:b#00FF00:"Trafic sortant en bits" \
@@ -114,3 +114,40 @@ rrdtool graph ${GRAPHS_DIR}/meminfo.png --start -86400 \
 	AREA:shared#F00000:"Shared" \
 	LINE1:shared#000000 \
 	-w 800 -h 260 > /dev/null
+
+if [ ! -r "${GRAPHS_DIR}/index.html" ] ; then
+	cat > "${GRAPHS_DIR}/index.html" <<EOF
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<title>Statistiques LinuxFr.org</title>
+<meta charset="utf-8">
+</head>
+
+<body>
+
+<h2 id="load">Charge serveur <a href="#load" class="anchor">¶</a></h2>
+
+<img src="load.png" alt="Charge serveur quotidienne" /><br/>
+
+<img src="load-week.png" alt="Charge serveur hebdomadaire" /><br/>
+
+<img src="load-month.png" alt="Charge serveur mensuelle" /><br/>
+
+<img src="load-semestre.png" alt="Charge serveur semestrielle" /><br/>
+
+<img src="load-yearly.png" alt="Charge serveur annuelle" /><br/>
+
+<h2 id="memory">Mémoire <a href="#memory" class="anchor">¶</a></h2>
+
+<img src="meminfo.png" alt="Stats mémoire" /><br/>
+
+<h2 id="network">Réseau <a href="#network" class="anchor">¶</a></h2>
+
+<img src="network-eth-day.png" alt="Stats réseau" /><br/>
+
+</body>
+
+</html>
+EOF
+fi
