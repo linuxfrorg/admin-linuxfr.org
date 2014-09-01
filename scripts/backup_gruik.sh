@@ -14,7 +14,6 @@ BACKUP_LOG_TMP=$(mktemp)
 BACKUP_EXCLUDE="--exclude /proc --exclude /dev --exclude /sys --exclude /var/run --exclude /var/lock --exclude /cgroup --exclude **/var/cache/apt/archives/** --exclude /root/old_not_backupped"
 
 MAILDEST="root@linuxfr.org"
-MAILDEST="ruffy@linuxfr.org"
 DATE=$(date +%Y%m%d)
 MAILSUBJECT="Duplicity log: $1 backup - date: ${DATE}"
 NB_FULLBACKUP_TO_KEEP=2
