@@ -134,9 +134,9 @@ if [ ! -r "${GRAPHS_DIR}/index.html" ] ; then
 		IFACE_NAMEX="IFACE_${iface}"
 		IFACE_NAME="${!IFACE_NAMEX:-${iface}}"
 		IFACE_LIST="${IFACE_LIST}\
-<li><a href=\"\#iface${iface}\">Interface ${IFACE_NAME}</a></li>"
+<li><a href=\"#iface${iface}\">Interface ${IFACE_NAME}</a></li>"
 		IFACE_HTML="${IFACE_HTML}\
-<h3 id=\"iface${iface}\">Interface ${IFACE_NAME} <a href=\"\#iface${iface}\" class=\"anchor\">¶</a>&nbsp;<a href=\"\#top\">^</a></h2>
+<h3 id=\"iface${iface}\">Interface ${IFACE_NAME} <a href=\"#iface${iface}\" class=\"anchor\">¶</a>&nbsp;<a href=\"#top\">^</a></h3>
 <img src=\"network-${iface}-day.png\" alt=\"Stats réseau ${IFACE_NAME} quotidienne\" /><br/>
 <img src=\"network-${iface}-week.png\" alt=\"Stats réseau ${IFACE_NAME} hebdomadaire\" /><br/>
 <img src=\"network-${iface}-month.png\" alt=\"Stats réseau ${IFACE_NAME} mensuelle\" /><br/>
@@ -154,14 +154,15 @@ if [ ! -r "${GRAPHS_DIR}/index.html" ] ; then
 
 <body>
 
-<h2 id="top">Sommaire</2>
+<h2 id="top">Sommaire</h2>
 <ul>
 <li><a href="#load">Charge serveur</a></li>
 <li><a href="#memory">Mémoire</a></li>
-<li><a href="#network">Réseau</a></li>
+<li><a href="#network">Réseau</a>
 	<ul>
 	${IFACE_LIST}
 	</ul>
+</li>
 </ul>
 
 <h2 id="load">Charge serveur <a href="#load" class="anchor">¶</a>&nbsp;<a href="#top">^</a></h2>
