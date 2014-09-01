@@ -12,3 +12,6 @@ WEB_DOMAINNAME="${CONTAINER}.linuxfr.org"
 WEBALIZER_CONF="/etc/linuxfr/webalizer.conf"
 WEBALIZER_INPUT="${WEBLOGS_DIR}/${USERNAME}"
 WEBALIZER_OUTPUT="${WEBLOGS_DIR}/webalizer"
+
+IFACE_vethXXXXX="foo"
+IFACE_eth2="bar"
