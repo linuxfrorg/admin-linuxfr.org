@@ -72,7 +72,7 @@ for iface in ${IFACES} ; do
 			AREA:a${ORANGE}:"Trafic entrant en bits" \
 			LINE1:a#000000 \
 			GPRINT:a:AVERAGE:"Moy\: %.2lf%s" \
-			GPRINT:a:MAX:"Max\\: %.2lf%s" \
+			GPRINT:a:MIN:"Max\\: %.2lf%s" \
 			GPRINT:a:LAST:"Dernier\: %.2lf%s" > /dev/null
 	}
 
