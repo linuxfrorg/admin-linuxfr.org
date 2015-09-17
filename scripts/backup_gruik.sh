@@ -30,18 +30,21 @@ usage()
   exit 1
 }
 
+# While paramiko 1.15.1 not available in Ubuntu LTS, use pexpect backend instead
+# https://github.com/paramiko/paramiko/issues/423
+
 # $1 == incr or full
 duplicity_backup()
 {
   echo "Start $1 backup job at $(date)" | tee -a ${BACKUP_LOG_TMP} >> ${BACKUP_LOG}
-  duplicity $1 ${GPG_KEYS} ${BACKUP_EXCLUDE} --volsize 1000 / ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
+  duplicity $1 ${GPG_KEYS} ${BACKUP_EXCLUDE} --ssh-backend pexpect --volsize 1000 / ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
 }
 
 duplicity_clean()
 {
   echo "Start cleaning backups at $(date)" | tee -a ${BACKUP_LOG_TMP} >> ${BACKUP_LOG}
-  duplicity remove-all-but-n-full ${NB_FULLBACKUP_TO_KEEP} --force ${GPG_KEYS} ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
-  duplicity clean --force --extra-clean ${GPG_KEYS} ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
+  duplicity remove-all-but-n-full ${NB_FULLBACKUP_TO_KEEP} --force --ssh-backend pexpect ${GPG_KEYS} ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
+  duplicity clean --force --ssh-backend pexpect --extra-clean ${GPG_KEYS} ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
 }
 
 case "$1" in
@@ -64,7 +67,7 @@ case "$1" in
     fi
     echo "Start restoring at $(date) file $2 into $3 ${TIME:+with }${TIME} (not logged)"
     unset PASSPHRASE
-    GNUPGHOME=$4 duplicity restore ${GPG_KEYS} ${TIME} --file-to-restore "$2" ${BACKUP_ZONE} "$3"
+    GNUPGHOME=$4 duplicity restore ${GPG_KEYS} ${TIME} --ssh-backend pexpect --file-to-restore "$2" ${BACKUP_ZONE} "$3"
     RET=$?
     echo "End restoring at $(date) (not logged)"
     exit $?
@@ -81,7 +84,7 @@ esac
 #echo "Starting verify backup at $(date)" >> ${BACKUP_LOG}
 #duplicity verify ${GPG_KEYS} -vn ${BACKUP_ZONE} / &>> ${BACKUP_LOG}
 
-duplicity collection-status ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
+duplicity collection-status --ssh-backend pexpect ${BACKUP_ZONE} |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
 
 echo "Job finished at $(date)" |& tee -a ${BACKUP_LOG_TMP} &>> ${BACKUP_LOG}
 
