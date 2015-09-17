@@ -13,9 +13,10 @@ cd $WEBLOGS_DIR
 mkdir -p $LOG_DATE
 
 cd $WEBALIZER_INPUT
-xz access.log.1
-xz error.log.1
 
-mv access.log.1.xz ${WEBLOGS_DIR}/${LOG_DATE}/access.log.xz
-mv error.log.1.xz  ${WEBLOGS_DIR}/${LOG_DATE}/error.log.xz
-
+for logfile in access.log error.log
+do
+        if [ -f ${logfile}.1 ]; then
+                xz ${logfile}.1 && mv ${logfile}.1.xz ${WEBLOGS_DIR}/${LOG_DATE}/${logfile}.xz
+        fi
+done
