@@ -1,0 +1,96 @@
+[FAIL] container prod sshd: tcp [0-9.]*:22 [0-9.:]* (CLOSE_WAIT|CLOSING|ESTABLISHED|FIN_WAIT[12]|LAST_ACK|SYN_RECV|SYN_SENT|TIME_WAIT) count 37 (max 24)
+[WARN] LXC containers: alpha main prod - Checked containers: alpha bla main prod
+[FAIL] host ntpd IPv6: udp6 [0-9a-f:]*:123 :::\*  count 6 (expect 7)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process sshd (/usr/sbin/sshd) user root pid(s) 
+[FAIL] container bla sshd: tcp 0.0.0.0:22 0.0.0.0:\* LISTEN count 0 (expect 1)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process ntpd (/usr/sbin/ntpd) user ntp pid(s) 
+[FAIL] container bla ntpd IPv4: udp [0-9.]*:123 0.0.0.0:\*  count 0 (expect 3)
+[FAIL] container bla ntpd IPv6: udp6 [0-9a-f:]*:123 :::\*  count 0 (expect 3)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process crond (/usr/sbin/cron) user root pid(s) 
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process rsyslogd (rsyslogd) user root pid(s) 
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process postfix master (postfix/master) user root pid(s) 
+[FAIL] container bla postfix master: tcp 127.0.0.1:25 0.0.0.0:\* LISTEN count 0 (expect 1)
+[FAIL] container bla postfix master: tcp6 ::1:25 :::\* LISTEN count 0 (expect 1)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process mysqld (mysqld) user mysql pid(s) 
+[FAIL] container bla mysqld: tcp 127.0.0.1:3306 0.0.0.0:\* LISTEN count 0 (expect 1)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process nginx (master process) user root pid(s) 
+[FAIL] container bla nginx: tcp 0.0.0.0:(80|443) 0.0.0.0:\* LISTEN count 0 (expect 2)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process etherpad-lite (safeRun.sh) user pad pid(s) 
+[FAIL] container bla etherpad-lite: tcp 127.0.0.1:9001 0.0.0.0:\* LISTEN count 0 (expect 1)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process etherpad-lite (run.sh) user pad pid(s) 
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process etherpad-lite (server.js) user pad pid(s) 
+[WARN] LXC containers: alpha main prod - Checked containers: alpha bla main prod
+[FAIL] host ntpd IPv6: udp6 [0-9a-f:]*:123 :::\*  count 6 (expect 7)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process sshd (/usr/sbin/sshd) user root pid(s) 
+[FAIL] container bla sshd: tcp 0.0.0.0:22 0.0.0.0:\* LISTEN count 0 (expect 1)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process ntpd (/usr/sbin/ntpd) user ntp pid(s) 
+[FAIL] container bla ntpd IPv4: udp [0-9.]*:123 0.0.0.0:\*  count 0 (expect 3)
+[FAIL] container bla ntpd IPv6: udp6 [0-9a-f:]*:123 :::\*  count 0 (expect 3)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process crond (/usr/sbin/cron) user root pid(s) 
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process rsyslogd (rsyslogd) user root pid(s) 
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process postfix master (postfix/master) user root pid(s) 
+[FAIL] container bla postfix master: tcp 127.0.0.1:25 0.0.0.0:\* LISTEN count 0 (expect 1)
+[FAIL] container bla postfix master: tcp6 ::1:25 :::\* LISTEN count 0 (expect 1)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process mysqld (mysqld) user mysql pid(s) 
+[FAIL] container bla mysqld: tcp 127.0.0.1:3306 0.0.0.0:\* LISTEN count 0 (expect 1)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process nginx (master process) user root pid(s) 
+[FAIL] container bla nginx: tcp 0.0.0.0:(80|443) 0.0.0.0:\* LISTEN count 0 (expect 2)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process etherpad-lite (safeRun.sh) user pad pid(s) 
+[FAIL] container bla etherpad-lite: tcp 127.0.0.1:9001 0.0.0.0:\* LISTEN count 0 (expect 1)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process etherpad-lite (run.sh) user pad pid(s) 
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process etherpad-lite (server.js) user pad pid(s) 
+[WARN] LXC containers: alpha main prod - Checked containers: alpha bla main prod
+[FAIL] host ntpd IPv6: udp6 [0-9a-f:]*:123 :::\*  count 6 (expect 7)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process sshd (/usr/sbin/sshd) user root pid(s) 
+[FAIL] container bla sshd: tcp 0.0.0.0:22 0.0.0.0:\* LISTEN count 0 (expect 1)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process ntpd (/usr/sbin/ntpd) user ntp pid(s) 
+[FAIL] container bla ntpd IPv4: udp [0-9.]*:123 0.0.0.0:\*  count 0 (expect 3)
+[FAIL] container bla ntpd IPv6: udp6 [0-9a-f:]*:123 :::\*  count 0 (expect 3)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process crond (/usr/sbin/cron) user root pid(s) 
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process rsyslogd (rsyslogd) user root pid(s) 
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process postfix master (postfix/master) user root pid(s) 
+[FAIL] container bla postfix master: tcp 127.0.0.1:25 0.0.0.0:\* LISTEN count 0 (expect 1)
+[FAIL] container bla postfix master: tcp6 ::1:25 :::\* LISTEN count 0 (expect 1)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process mysqld (mysqld) user mysql pid(s) 
+[FAIL] container bla mysqld: tcp 127.0.0.1:3306 0.0.0.0:\* LISTEN count 0 (expect 1)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process nginx (master process) user root pid(s) 
+[FAIL] container bla nginx: tcp 0.0.0.0:(80|443) 0.0.0.0:\* LISTEN count 0 (expect 2)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process etherpad-lite (safeRun.sh) user pad pid(s) 
+[FAIL] container bla etherpad-lite: tcp 127.0.0.1:9001 0.0.0.0:\* LISTEN count 0 (expect 1)
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process etherpad-lite (run.sh) user pad pid(s) 
+lxc-attach: attach.c: lxc_attach: 733 failed to get the init pid
+[FAIL] container bla missing process etherpad-lite (server.js) user pad pid(s) 
+Unfiltered socket(s) on container prod:
+tcp        0      0 88.191.250.176:48172    195.154.110.64:5281     ESTABLISHED 15167/img-LinuxFr.o
