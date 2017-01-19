@@ -4,3 +4,4 @@ scripts/ipdates.txt
 scripts/ips.txt
 scripts/rrd/*.rrd
 scripts/duplicity_backup.sh
+scripts/lxc-check.txt
