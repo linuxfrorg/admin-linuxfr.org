@@ -1,1 +1,0 @@
-[FAIL] container prod sshd: tcp [0-9.]*:22 [0-9.:]* (CLOSE_WAIT|CLOSING|ESTABLISHED|FIN_WAIT[12]|LAST_ACK|SYN_RECV|SYN_SENT|TIME_WAIT) count 37 (max 24)
