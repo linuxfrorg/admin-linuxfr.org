@@ -193,7 +193,8 @@ do
 		check_process "$server" "img"              "${username}" "img-LinuxFr.org"
 		check_socket  "$server" "img-LinuxFr.org"  "tcp"  "127.0.0.1:8000"   "0.0.0.0:\*"        "LISTEN"         1
 		check_socket  "$server" "img-LinuxFr.org"  "tcp"  "127.0.0.1:8000"   "[0-9.:]*"          "$not_listening" "" ${!img_conn}
-		check_socket  "$server" "img-LinuxFr.org"  "tcp"  "[0-9:]*"          "[0-9.]*:(80|443)"  "SYN_SENT"       "" 10
+		check_socket  "$server" "img-LinuxFr.org"  "tcp"  "[0-9:]*"          "[0-9.]*:(80|443|5281)"  "SYN_SENT"       "" 10
+		check_socket  "$server" "img-LinuxFr.org"  "tcp"  "[0-9:]*"          "[0-9.]*:5281"      "$not_listening" "" ${!img_conn} #ugly fix for :5281
 
 		check_process "$server" "rails"            "${username}" "unicorn master"
 
