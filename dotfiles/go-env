@@ -1,5 +1,5 @@
 export GOPATH="$HOME/go"
-export GOROOT="/usr/lib/go"
+export GOROOT="/usr/lib/go-1.7"
 export PATH="$HOME/go/bin:$PATH"
 
 # A temporary fix for: cannot create <nil>/go.o: No such file or directory

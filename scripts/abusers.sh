@@ -1,13 +1,12 @@
 #!/bin/sh
-
-. "./conf.sh"
+# Managed by Ansible, do not edit by hand
 
 now=$(date +%s)
 IPS_FILE="ips.txt"
 IPDATES_FILE="ipdates.txt"
 IPDATES_FILE_TMP="ipdates.txt.tmp"
-IPDATES_TEMPLATE="${LINUXFR_DIR}/${USERNAME}/production/current/tmp/abusers.txt"
-LOGS_FILE="${WEBLOGS_DIR}/${USERNAME}/access.log"
+IPDATES_TEMPLATE="/data/prod/linuxfr/production/current/tmp/abusers.txt"
+LOGS_FILE="/data/prod/logs/linuxfr/access.log"
 
 update_ipdates_file() {
 for i in $1 

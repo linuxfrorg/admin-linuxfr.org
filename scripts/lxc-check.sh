@@ -127,8 +127,9 @@ do
 	check_socket  "$server" "sshd"       "tcp"   "[0-9.]*:22"         "[0-9.:]*"          "$not_listening" "" 24
 
 	check_process "$server" "ntpd"       "ntp"   "/usr/sbin/ntpd"
-	check_socket  "$server" "ntpd IPv4"  "udp"   "[0-9.]*:123"     "0.0.0.0:\*"        ""               3
-	if [ -z "${server}" ] ; then ntp_conn=6; else ntp_conn=3; fi
+	if [ -z "${server}" ] ; then ntp_conn=4; else ntp_conn=3; fi
+	check_socket  "$server" "ntpd IPv4"  "udp"   "[0-9.]*:123"     "0.0.0.0:\*"        ""               ${ntp_conn}
+	if [ -z "${server}" ] ; then ntp_conn=7; else ntp_conn=3; fi
 	check_socket  "$server" "ntpd IPv6"  "udp6"  "[0-9a-f:]*:123"  ":::\*"             ""               ${ntp_conn}
 
 	check_process "$server" "crond"      "root"  "/usr/sbin/cron"
