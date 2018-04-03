@@ -50,7 +50,6 @@ server {
     error_log /data/<%= vserver %>/logs/<%= user %>/error.log error;
     root /var/www/<%= user %>/<%= env %>/current/public;
 
-    listen 80;
     listen 443 default_server ssl;
 
     add_header X-Content-Type-Options nosniff;
@@ -621,6 +620,13 @@ server {
       rewrite ^/tips/588.html$ /forums/astucesdivers/posts/terminal-limiter-la-vitesse-dun-lecteur-de-cddvd permanent;
       rewrite ^/tips/590.html$ /forums/astucesdivers/posts/terminal-extraire-le-son-dune-vid%C3%A9o permanent;
     }
+}
+
+# No-TLS
+server {
+    server_name <%= fqdn %>;
+    listen 80 default_server;
+    rewrite ^/(.*) https://<%= fqdn %>/$1 permanent;
 }
 
 # No-www
