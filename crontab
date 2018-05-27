@@ -9,33 +9,4 @@ SHELL=/bin/bash
 */5 * * * * ~/board/bin/board-mon.sh
 */5 * * * * ~/share/share-mon.sh
 
-
-
-Crontab de root :
-
-SHELL=/bin/bash
-SCRIPTS_DIR=/etc/linuxfr
-
-# traitement des logs et sauvegarde journalière
-15 3     * * *     cd ${SCRIPTS_DIR} && ./backup-linuxfr-daily.sh
-
-# sauvegarde hebdo
-15 5     * * 0     cd ${SCRIPTS_DIR} && ./backup-linuxfr-weekly.sh
-
-# courbes RRD surveillance serveur
-0-59/1 * * * *     cd ${SCRIPTS_DIR} && ./rrd/makestats.sh &>/dev/null
-
-# script abusers
-0 *      * * *     cd ${SCRIPTS_DIR} && ./abusers.sh
-
-# extraction des données de webalizer
-5 3      1 * *     cd /data/prod/logs/webalizer && ${SCRIPTS_DIR}/webalizer_data.sh
-
-
-
-Crontab de gruik :
-
-# Backups
-42 4 * * 0   /etc/linuxfr/backup_gruik.sh full
-42 4 * * 1-6 /etc/linuxfr/backup_gruik.sh incremental
-
+(le reste des crontabs est géré par Ansible)

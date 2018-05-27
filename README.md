@@ -1,3 +1,6 @@
+Avertissement : dépôt en cours de remplacement par des scripts Ansible de
+déploiement ; les informations ci-dessous sont partiellement obsolètes
+
 Admin LinuxFr.org
 =================
 
@@ -57,13 +60,6 @@ On retourne en root pour installer Redis :
     # aptitude install redis-server
     # ln -sf /data/prod/linuxfr/admin/conf/redis/redis.conf /etc/redis/
     # /etc/init.d/redis-server start
-
-Et ElasticSearch :
-
-    # echo 'deb http://deb.bearstech.com/squeeze elasticsearch/' >> /etc/apt/sources.list.d/40bearstech.list
-    # aptitude update
-    # aptitude install elasticsearch
-    # /etc/init.d/elasticsearch start
 
 Un mysql, avec création de la base de données :
 
