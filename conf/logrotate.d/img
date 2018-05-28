@@ -1,9 +1,0 @@
-/data/prod/logs/img/img*.log {
-        daily
-        missingok
-        rotate 10
-        compress
-        nodelaycompress
-        notifempty
-        copytruncate
-}

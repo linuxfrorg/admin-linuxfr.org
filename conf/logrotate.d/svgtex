@@ -1,9 +1,0 @@
-/data/prod/logs/svgtext/svgtex*.log {
-        daily
-        missingok
-        rotate 10
-        compress
-        nodelaycompress
-        notifempty
-        copytruncate
-}

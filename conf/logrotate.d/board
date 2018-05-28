@@ -1,9 +1,0 @@
-/var/www/linuxfr/board/board*.log {
-        daily
-        missingok
-        rotate 3
-        compress
-        nodelaycompress
-        notifempty
-        copytruncate
-}
