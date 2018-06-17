@@ -1,9 +1,0 @@
-/var/www/linuxfr/production/current/log/*.log {
-        daily
-        missingok
-        rotate 10
-        compress
-        nodelaycompress
-        notifempty
-        copytruncate
-}
