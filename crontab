@@ -5,8 +5,4 @@ SHELL=/bin/bash
 # Maintenance une fois par jour : votes, karmas, tribunes, sitemap, etc.
 0 1 * * *   source ruby-env && cd $RAILS_ENV/current && bundle exec rake -s linuxfr:daily
 
-# Monitoring
-*/5 * * * * ~/board/bin/board-mon.sh
-*/5 * * * * ~/share/share-mon.sh
-
 (le reste des crontabs est géré par Ansible)
