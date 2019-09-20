@@ -50,7 +50,7 @@ server {
         proxy_pass http://epub-frontend;
     }
 
-    location ~* \.(css|js|ico|gif|jpe?g|png|svg|xcf|ttf|otf|dtd)$ {
+    location ~* \.(css|js|ico|gif|jpe?g|png|svg|xcf|ttf|otf|dtd|woff2?)$ {
         expires 10d;
     }
 
