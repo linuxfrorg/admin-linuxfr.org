@@ -59,4 +59,5 @@ types {
     font/opentype                         otf;
     font/truetype                         ttf;
     application/font-woff                 woff;
+    font/woff2                            woff2;
 }
