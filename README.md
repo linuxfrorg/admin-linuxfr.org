@@ -1,3 +1,13 @@
+DEPRECATED
+==========
+
+Ce dépôt git n'est plus utilisé. L'équipe d'admin/sys de LinuxFr.org est passé
+à ansible comme outil de gestion des serveurs. Il est prévu que le nouveau
+dépôt git avec ces configurations ansible soit nettoyé, puis rendu public, mais
+ce n'est pas encore le cas.
+
+---
+
 Admin LinuxFr.org
 =================
 
